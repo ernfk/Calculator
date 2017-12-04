@@ -8,7 +8,7 @@ export default class Screen extends Component {
 
     render() {
         return(
-            <div className="screen"> #Screen </div>
+            <input className="screen" type="text"> #Screen </input>
         )
     }
 }

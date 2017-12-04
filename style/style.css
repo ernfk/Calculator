@@ -14,8 +14,12 @@
 .screen {
     width: 280px;
     margin: auto;
-    height: 120px;
+    height: 60px;
     border: 3px #356dff solid;
+    display: flex;
+    font-size: 20px;
+    color: #ff2884;
+    text-align: right;
 }
 
 /* #Numerical block */
