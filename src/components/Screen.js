@@ -10,7 +10,12 @@ export class Screen extends Component {
 
     render() {
         const {equation, result} = this.props;
-        let equationToShow = equation.join(' ');
+
+        let equationToShow = equation
+            .map(singleChar => singleChar + ' ')
+            .join('')
+            .trim();
+
         let showingData = null;
         console.log('Equation to show: ', equationToShow);
         console.log('Result: ', result);
