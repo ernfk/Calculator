@@ -1,13 +1,16 @@
 import React, {Component} from 'react';
+import {connect} from "react-redux";
+import * as actions from "../actions";
 
 
-export class DigitalButton extends Component {
+class DigitalButton extends Component {
     constructor(props) {
         super(props);
     }
 
     onClick(event) {
-        console.log('onClick: ', event);
+        const {selectDigitalButton} = this.props;
+        selectDigitalButton(event);
     }
 
     render() {
@@ -18,7 +21,8 @@ export class DigitalButton extends Component {
             </div>
         );
     }
-
 }
+
+export default connect(null, actions)(DigitalButton);
 
 

@@ -1,13 +1,11 @@
-import React, {Component} from "react"
-import {DigitalButton} from "./DigitalButton";
-import {OperationButton} from "./OperationButton";
+import React, {Component} from "react";
 import {SingleButtonsRow} from "./SingleButtonsRow";
+
 
 
 export class NumericalBlock extends Component {
     constructor(props) {
         super(props);
-        console.log(this.props);
     }
 
     render() {

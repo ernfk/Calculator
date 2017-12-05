@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {DigitalButton} from "./DigitalButton";
+import DigitalButton from "./DigitalButton";
 import {OperationButton} from "./OperationButton";
 
 export class SingleButtonsRow extends Component {
