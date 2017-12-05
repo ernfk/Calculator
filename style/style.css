@@ -1,3 +1,7 @@
+body {
+    background-image: url("mochaGrunge.png");
+    padding: 20px;
+}
 .calculator-placement {
     margin: auto;
     display: flex;
