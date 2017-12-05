@@ -7,17 +7,17 @@ export class SingleButtonsRow extends Component {
         super(props);
     }
 
+
     render() {
         let buttons = [];
         const {digitalButtonsPerRow, operationButtonsPerRow, rowKey} = this.props;
 
-        console.log(this.props);
         digitalButtonsPerRow.forEach((digitalButton, index) => {
-            buttons.push(<DigitalButton value={digitalButton} key={rowKey+index}/>);
+            buttons.push(<DigitalButton value={digitalButton} key={rowKey + index}/>);
         });
 
         operationButtonsPerRow.forEach((operationButton, index) => {
-            buttons.push(<OperationButton value={operationButton} key={rowKey+index+4}/>);
+            buttons.push(<OperationButton value={operationButton} key={rowKey + index + 4}/>);
         });
 
 

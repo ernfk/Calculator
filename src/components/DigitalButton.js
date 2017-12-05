@@ -1,8 +1,24 @@
-import React from 'react';
+import React, {Component} from 'react';
 
 
-export const DigitalButton = ({value}) =>
-    <div className="digital-button">
-        <span className="button-value"> {value} </span>
-    </div>;
+export class DigitalButton extends Component {
+    constructor(props) {
+        super(props);
+    }
+
+    onClick(event) {
+        console.log('onClick: ', event);
+    }
+
+    render() {
+        const {value} = this.props;
+        return (
+            <div className="digital-button" onClick={this.onClick.bind(this, value)}>
+                <span className="button-value"> {value} </span>
+            </div>
+        );
+    }
+
+}
+
 
