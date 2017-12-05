@@ -9,13 +9,19 @@ export class Screen extends Component {
     }
 
     render() {
-        const {equation} = this.props;
-        console.log(equation);
+        const {equation, result} = this.props;
         let equationToShow = equation.join(' ');
+        let showingData = null;
+        console.log('Equation to show: ', equationToShow);
+        console.log('Result: ', result);
+
+        showingData = result === null ? equationToShow : result;
+
+        console.log(showingData);
         return (
             <div>
                 #Screen
-                <input className="screen" type="text" value={equationToShow} />
+                <input className="screen" type="text" value={showingData} />
             </div>
         )
     }
@@ -27,7 +33,8 @@ Screen.propTypes = {
 
 const mapStateToProps = (state) => {
     return {
-        equation: state.buttons.equation
+        equation: state.buttons.equation,
+        result: state.buttons.result
     }
 };
 
