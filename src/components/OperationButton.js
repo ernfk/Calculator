@@ -1,13 +1,15 @@
 import React, {Component} from 'react';
+import {connect} from "react-redux";
+import * as actions from "../actions";
 
-
-export class OperationButton extends Component {
+class OperationButton extends Component {
     constructor(props) {
         super(props);
     }
 
-    onClick(event) {
-        console.log('onClick: ', event);
+    onClick(value) {
+        const {selectOperationButton, selectResultButton} = this.props;
+        value === "=" ? selectResultButton(value) : selectOperationButton(value);
     }
 
     render() {
@@ -19,3 +21,5 @@ export class OperationButton extends Component {
         )
     }
 }
+
+export default connect(null, actions)(OperationButton);
