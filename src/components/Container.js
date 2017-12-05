@@ -12,7 +12,7 @@ export default class Container extends Component {
     render() {
         return (
             <div className="container">
-                #Container
+                <span className="container-title"> #C </span>
                 <Screen/>
                 <NumericalBlock/>
                 <CalculatorFooter />

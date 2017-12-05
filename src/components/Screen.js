@@ -25,8 +25,7 @@ export class Screen extends Component {
         console.log(showingData);
         return (
             <div>
-                #Screen
-                <input className="screen" type="text" value={showingData} />
+                <input className="screen" type="text" value={showingData} placeholder="0"/>
             </div>
         )
     }

@@ -11,7 +11,6 @@ export class NumericalBlock extends Component {
     render() {
         return (
             <div className="numerical-block">
-                <span style={{width: "100%"}}> #Numerical block </span>
                 <SingleButtonsRow digitalButtonsPerRow={["7", "8", "9"]}
                                   operationButtonsPerRow={["+"]}
                                   rowKey={0}
