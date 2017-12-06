@@ -11,20 +11,13 @@ export class Screen extends Component {
 
     render() {
         const {equation, result} = this.props;
-
-        let equationToShow = equation
-            .map(singleChar => singleChar + ' ')
-            .join('')
-            .trim();
-
+        const equationToShow = prepareEquationToShow(equation);
         let showingData = null;
-        console.log('Equation to show: ', equationToShow);
-        console.log('Result: ', result);
+
 
         if (result === 'Bad input!') screenStyle = "screen-error";
         showingData = result === null ? equationToShow : result;
 
-        console.log(showingData);
         return (
             <div>
                 <input className={screenStyle} type="text" value={showingData} placeholder="0"/>
@@ -45,3 +38,13 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps, null)(Screen);
+
+export const prepareEquationToShow = (equation) => {
+    return equation
+        .map(singleChar => {
+            if (isNaN(singleChar) && singleChar !== ".") singleChar = ' ' + singleChar + ' ';
+            return singleChar;
+        })
+        .join('')
+        .trim();
+};

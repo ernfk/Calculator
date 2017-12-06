@@ -1,15 +1,17 @@
 const expect = require('expect');
 import {calculate} from "../src/reducers/buttons";
+import {prepareEquationToShow} from "../src/components/Screen";
 import {beforeEach} from "mocha";
 
 
 describe('Tests for chaining equation', () => {
 
     let equation;
-    let desiredEquation = '2 + 3 - 3.3 * 5 / 2';
+    let desiredEquation;
 
     beforeEach(() => {
         equation = ["2", "+", "3", "-", "3.3", "*", "5", "/", "2"];
+        desiredEquation = '2 + 3 - 3.3 * 5 / 2';
     });
 
     it('Correct init test', () => {
@@ -29,6 +31,22 @@ describe('Tests for chaining equation', () => {
             .map(singleChar => singleChar + ' ')
             .join('')
             .trim();
+
+        expect(transformedEquation).toEqual(desiredEquation);
+    });
+
+    it('Return numbers and operation and chain it due to rule: 303 + 1.5 - prepareEquationToShow()', () => {
+        equation = ["3", "0", "3", "+", "1", ".", "5"];
+        desiredEquation = "303 + 1.5";
+        let transformedEquation = prepareEquationToShow(equation);
+
+        expect(transformedEquation).toEqual(desiredEquation);
+    });
+
+    it('Return numbers and operation and chain it due to rule: 303 + 1.5 - 4.1 * 7 / 2.3 - prepareEquationToShow()', () => {
+        equation = ["3", "0", "3", "+", "1", ".", "5", "-", "4", ".", "1", "*", "7", "/", "2", ".", "3"];
+        desiredEquation = "303 + 1.5 - 4.1 * 7 / 2.3";
+        let transformedEquation = prepareEquationToShow(equation);
 
         expect(transformedEquation).toEqual(desiredEquation);
     });
