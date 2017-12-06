@@ -1,7 +1,8 @@
-const expect = require('expect');
-import {calculate, verifyOperationSings} from "../src/reducers/buttons";
-import {prepareEquationToShow} from "../src/components/Screen";
-import {beforeEach} from "mocha";
+// const expect = require('expect'); to.equal -> toEqual
+import {calculate, verifyOperationSings} from "../../src/reducers/buttons";
+import {prepareEquationToShow} from "../../src/components/Screen";
+import {expect} from "../testing_helper";
+import {beforeEach, describe, it} from "mocha/lib/mocha";
 
 
 describe('Tests for chaining equation', () => {
@@ -16,14 +17,14 @@ describe('Tests for chaining equation', () => {
 
     it('Correct init test', () => {
         const numbers = ["2", "+", "3", "-", "3.3", "*", "5", "/", "2"];
-        expect(equation).toEqual(numbers);
+        expect(equation).to.deep.equal(numbers);
     });
 
     it('Check and return numbers from array', () => {
         let numbers = equation.filter((element) => {
             return !isNaN(element);
         });
-        expect(numbers.length).toEqual(5);
+        expect(numbers.length).to.deep.equal(5);
     });
 
     it('Return numbers and operation chars and chain it due to rule: 2 + 3 - 3.3 * 5 / 2', () => {
@@ -32,7 +33,7 @@ describe('Tests for chaining equation', () => {
             .join('')
             .trim();
 
-        expect(transformedEquation).toEqual(desiredEquation);
+        expect(transformedEquation).to.deep.equal(desiredEquation);
     });
 
     it('Return numbers and operation and chain it due to rule: 303 + 1.5 - prepareEquationToShow()', () => {
@@ -40,7 +41,7 @@ describe('Tests for chaining equation', () => {
         desiredEquation = "303 + 1.5";
         let transformedEquation = prepareEquationToShow(equation);
 
-        expect(transformedEquation).toEqual(desiredEquation);
+        expect(transformedEquation).to.deep.equal(desiredEquation);
     });
 
     it('Return numbers and operation and chain it due to rule: 303 + 1.5 - 4.1 * 7 / 2.3 - prepareEquationToShow()', () => {
@@ -48,19 +49,19 @@ describe('Tests for chaining equation', () => {
         desiredEquation = "303 + 1.5 - 4.1 * 7 / 2.3";
         let transformedEquation = prepareEquationToShow(equation);
 
-        expect(transformedEquation).toEqual(desiredEquation);
+        expect(transformedEquation).to.deep.equal(desiredEquation);
     });
 
     describe('Calculate method', () => {
         it('Method calculates 2 + 3 - 3.3 * 5 / 2', () => {
             let result = calculate(equation);
-            expect(result).toEqual(-3.25);
+            expect(result).to.deep.equal(-3.25);
         });
 
         it('Method returns warning when input values are incorrect: 86*', () => {
             equation = ["8", "6", "*"];
             let result = calculate(equation);
-            expect(result).toEqual('Bad input!');
+            expect(result).to.deep.equal('Bad input!');
         });
 
         it('If two operation signs are selected one after one, delete previous: 2.2 + - 3 => 2.2 - 3, verifyOperationSings()', () => {
@@ -69,7 +70,7 @@ describe('Tests for chaining equation', () => {
 
             let filteredEquation = verifyOperationSings(equation);
 
-            expect(filteredEquation).toEqual(desiredEquation);
+            expect(filteredEquation).to.deep.equal(desiredEquation);
         });
 
         it('If three operation signs are selected one after one, delete previous: 2.2 * + - 3 => 2.2 - 3, verifyOperationSings()', () => {
@@ -78,7 +79,7 @@ describe('Tests for chaining equation', () => {
 
             let filteredEquation = verifyOperationSings(equation);
 
-            expect(filteredEquation).toEqual(desiredEquation);
+            expect(filteredEquation).to.deep.equal(desiredEquation);
         });
 
         it('If three operation signs are selected one after one, delete previous: 2.2 * + - 3 * - => 2.2 - 3 -, verifyOperationSings()', () => {
@@ -87,7 +88,7 @@ describe('Tests for chaining equation', () => {
 
             let filteredEquation = verifyOperationSings(equation);
 
-            expect(filteredEquation).toEqual(desiredEquation);
+            expect(filteredEquation).to.deep.equal(desiredEquation);
         });
 
         it('If one operation sign, shouldnt be deleted : 2+ => 2+, verifyOperationSings()', () => {
@@ -96,7 +97,7 @@ describe('Tests for chaining equation', () => {
 
             let filteredEquation = verifyOperationSings(equation);
 
-            expect(filteredEquation).toEqual(desiredEquation);
+            expect(filteredEquation).to.deep.equal(desiredEquation);
         });
 
     })

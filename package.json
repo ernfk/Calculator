@@ -1,13 +1,13 @@
 {
-  "name": "redux-simple-starter",
+  "name": "Calculator",
   "version": "1.0.0",
-  "description": "Simple starter package for Redux with React and Babel support",
+  "description": "App which calculates mathematical equations",
   "main": "index.js",
-  "repository": "git@github.com:StephenGrider/ReduxSimpleStarter.git",
+  "repository": "",
   "scripts": {
     "start": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js",
-    "test": "mocha",
-    "testAll" : "mocha --compilers js:babel-core/register"
+    "test": "mocha --compilers js:babel-core/register --require ./test/testing_helper.js ./test/**/*.js",
+    "test:watch": "npm run test -- --watch"
   },
   "author": "",
   "license": "ISC",
