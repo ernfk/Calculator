@@ -1,5 +1,5 @@
 const expect = require('expect');
-import {calculate} from "../src/reducers/buttons";
+import {calculate, verifyOperationSings} from "../src/reducers/buttons";
 import {prepareEquationToShow} from "../src/components/Screen";
 import {beforeEach} from "mocha";
 
@@ -58,9 +58,46 @@ describe('Tests for chaining equation', () => {
         });
 
         it('Method returns warning when input values are incorrect: 86*', () => {
-            let equation = ["8", "6", "*"];
+            equation = ["8", "6", "*"];
             let result = calculate(equation);
             expect(result).toEqual('Bad input!');
         });
+
+        it('If two operation signs are selected one after one, delete previous: 2.2 + - 3 => 2.2 - 3, verifyOperationSings()', () => {
+            equation = ["2", ".", "2", "+", "-", "3"];
+            desiredEquation = ["2", ".", "2", "-", "3"];
+
+            let filteredEquation = verifyOperationSings(equation);
+
+            expect(filteredEquation).toEqual(desiredEquation);
+        });
+
+        it('If three operation signs are selected one after one, delete previous: 2.2 * + - 3 => 2.2 - 3, verifyOperationSings()', () => {
+            equation = ["2", ".", "2", "*", "+", "-", "3"];
+            desiredEquation = ["2", ".", "2", "-", "3"];
+
+            let filteredEquation = verifyOperationSings(equation);
+
+            expect(filteredEquation).toEqual(desiredEquation);
+        });
+
+        it('If three operation signs are selected one after one, delete previous: 2.2 * + - 3 * - => 2.2 - 3 -, verifyOperationSings()', () => {
+            equation = ["2", ".", "2", "*", "+", "-", "3", "*", "-"];
+            desiredEquation = ["2", ".", "2", "-", "3", "-"];
+
+            let filteredEquation = verifyOperationSings(equation);
+
+            expect(filteredEquation).toEqual(desiredEquation);
+        });
+
+        it('If one operation sign, shouldnt be deleted : 2+ => 2+, verifyOperationSings()', () => {
+            equation = ["2", "+"];
+            desiredEquation = ["2", "+"];
+
+            let filteredEquation = verifyOperationSings(equation);
+
+            expect(filteredEquation).toEqual(desiredEquation);
+        });
+
     })
 });

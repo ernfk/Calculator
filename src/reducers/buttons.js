@@ -10,7 +10,7 @@ export const buttonsReducer = (state = initialState, action) => {
         case SELECT_DIGITAL_BUTTON:
             return {...state, equation: [...state.equation, action.value]};
         case SELECT_OPERATION_BUTTON:
-            return {...state, equation: [...state.equation, action.value]};
+            return {...state, equation: checkSings(state.equation, action.value)};
         case SELECT_RESULT_BUTTON:
             return {...state, result: calculate(state.equation)};
         default:
@@ -27,4 +27,15 @@ export const calculate = (equation) => {
     }
 
     return result;
+};
+
+const checkSings = (equation, newValue) => {
+    let toFilter = [...equation, newValue];
+    return verifyOperationSings(toFilter);
+};
+
+export const verifyOperationSings = (arrayToVerify) => {
+    return arrayToVerify.filter((currChar, index, arr) => {
+        return index + 1 === arr.length || !(isNaN(currChar) && isNaN(arr[index + 1]));
+    });
 };

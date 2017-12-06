@@ -1,11 +1,11 @@
 Tests:
 1. Write tests for calculate method, `Done: 06.12.2017`
-2. Add tests for transform equation.
+2. Add tests for transform equation. `Done: 06.12.2017`
 3. Tests for components.
 
 
 Bugs:
-1. Separator between two or more selected digits to put number.
+1. Delete: space between two or more selected digits when user putting number (no digit). `Done: 06.12.2017`
 
 Improvements:
 1. Add button: Clear which erases whole input data.
