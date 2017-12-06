@@ -25,7 +25,7 @@ body {
 }
 
 /* #Screen */
-.screen {
+.screen, .screen-error {
     width: 244px;
     margin: 10px auto;
     height: 60px;
@@ -37,6 +37,10 @@ body {
     text-align: right;
     font-family: 'Orbitron';
     background-color: #BFD7EA;
+}
+
+.screen-error {
+    color: #bc3e32;
 }
 
 ::-webkit-input-placeholder {

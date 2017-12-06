@@ -1,5 +1,5 @@
 Tests:
-1. Write tests for calculate method.
+1. Write tests for calculate method, `Done: 06.12.2017`
 2. Add tests for transform equation.
 3. Tests for components.
 

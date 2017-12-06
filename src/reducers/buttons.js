@@ -18,6 +18,13 @@ export const buttonsReducer = (state = initialState, action) => {
     }
 };
 
-const calculate = (equation) => {
-    return eval(equation.join(''));
+export const calculate = (equation) => {
+    let result;
+    try {
+        result = eval(equation.join(''));
+    } catch (err) {
+        result = 'Bad input!';
+    }
+
+    return result;
 };

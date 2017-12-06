@@ -7,7 +7,7 @@
   "scripts": {
     "start": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js",
     "test": "mocha",
-    "testAll": "npm run test -- --watch"
+    "testAll" : "mocha --compilers js:babel-core/register"
   },
   "author": "",
   "license": "ISC",
