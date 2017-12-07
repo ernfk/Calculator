@@ -9,10 +9,10 @@ Bugs:
 
 Improvements:
 1. Add button: Clear which erases whole input data `Done: 07.12.2017`
-2. Add button for erasing last put symbols <=.
-3. Add autoreset screen when click after result on result.
-4. Add buttons: ) and ( for more complex equations.
-5. Add possibility to write on screen equation with number keys.
+2. Add button for erasing last put symbols <=. `Done: 07.12.2017`
+3. Add buttons: ) and ( for more complex equations.
+4. Add possibility to write on screen equation with number keys. `Done: 07.12.2017`
+5. Add warning for user that coma is not used only dot for floatings.
 
 Additional improvements for future:
 1. Add history of last calculations.

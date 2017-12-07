@@ -1,12 +1,37 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
 import * as PropTypes from "react/lib/ReactPropTypes";
+import * as actions from "../actions/index";
 
 let screenStyle = "screen";
 
 export class Screen extends Component {
     constructor(props) {
         super(props);
+    }
+
+    onKeyPressedDown(event) {
+        const {selectDigitalButton, selectOperationButton, selectResultButton, selectCleanAllButton, selectCleanLastButton} = this.props;
+        let key = event.key;
+        let keyType = validatePressedKey(event.key);
+        switch (keyType) {
+            case "digitKey":
+                selectDigitalButton(key);
+                break;
+            case "operationKey":
+                selectOperationButton(key);
+                break;
+            case "resultKey":
+                selectResultButton(key);
+                break;
+            case "ACKey":
+                selectCleanAllButton(key);
+                break;
+            case "CKey":
+                selectCleanLastButton(key);
+                break;
+            default: throw new TypeError("Unknown key type.");
+        }
     }
 
     render() {
@@ -20,8 +45,8 @@ export class Screen extends Component {
         showingData = getDateToShow(result, alreadyCalculated, equationToShow);
 
         return (
-            <div>
-                <input className={screenStyle} type="text" value={showingData} placeholder="0"/>
+            <div onKeyDown={this.onKeyPressedDown.bind(this)}>
+                <input className={screenStyle} type="text" value={showingData} placeholder="0" id="inputFocus"/>
             </div>
         )
     }
@@ -39,7 +64,7 @@ const mapStateToProps = (state) => {
     }
 };
 
-export default connect(mapStateToProps, null)(Screen);
+export default connect(mapStateToProps, actions)(Screen);
 
 export const prepareEquationToShow = (equation) => {
     return equation
@@ -74,4 +99,56 @@ const getDateToShow = (result, alreadyCalculatedState, equationToShow) => {
         showingData = equationToShow;
     }
     return showingData;
+};
+
+export const validatePressedKey = (pressedKey) => {
+    let keyType;
+
+    if (isDigit(pressedKey)) {
+        keyType = "digitKey"
+    } else if (isOperationKey(pressedKey)) {
+        keyType = "operationKey"
+    } else if (isResultKey(pressedKey)) {
+        keyType = "resultKey"
+    } else if (isACKey(pressedKey)) {
+        keyType = "ACKey"
+    } else if (isCKey(pressedKey)) {
+        keyType = "CKey"
+    } else {
+        throw new TypeError('Unknown press key: ' + pressedKey);
+    }
+    return keyType;
+};
+
+const isDigit = (pressedKey) => {
+    let digitsKeys = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
+
+    let index = digitsKeys.findIndex((element) => {
+        return element === pressedKey;
+    });
+    if (index !== -1) return true;
+};
+
+const isOperationKey = (pressedKey) => {
+    let operationKeys = ["+", "-", ".", "/", "*"];
+
+    let index = operationKeys.findIndex((element) => {
+        return element === pressedKey;
+    });
+    if (index !== -1) return true;
+};
+
+export const isResultKey = (pressedKey) => {
+    let resultKey = "Enter";
+    if (pressedKey === resultKey) return true;
+};
+
+export const isACKey = (pressedKey) => {
+    let resultKey = "Escape";
+    if (pressedKey === resultKey) return true;
+};
+
+export const isCKey = (pressedKey) => {
+    let resultKey = "Backspace";
+    if (pressedKey === resultKey) return true;
 };

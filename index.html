@@ -6,9 +6,13 @@
     <link rel="stylesheet" href="/style/style.css">
     <link href="https://fonts.googleapis.com/css?family=Orbitron" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Amatic+SC" rel="stylesheet">
-
+    <script type="text/javascript">
+        const focusOnInput = () => {
+            document.getElementById("inputFocus").focus();
+        }
+    </script>
 </head>
-<body>
+<body onload="focusOnInput()">
 <div id="root"></div>
 </body>
 <script src="/bundle.js"></script>

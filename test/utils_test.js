@@ -1,8 +1,14 @@
 // const expect = require('expect'); to.equal -> toEqual
 import {expect, mockComponent} from "./testing_helper"; // used
 import {beforeEach, describe, it} from "mocha/lib/mocha";
-import {prepareEquationToShow} from "../src/components/Screen";
-import {calculate, deleteLastElement, verifyOperationSings} from "../src/reducers/buttons";
+import {prepareEquationToShow, validatePressedKey} from "../src/components/Screen";
+import {buttonsReducer, calculate, deleteLastElement, verifyOperationSings} from "../src/reducers/buttons";
+import {rootReducer} from "../src/reducers/index";
+import {createStore} from "redux";
+import {
+    selectCleanAllButton, selectCleanLastButton, selectDigitalButton,
+    selectResultButton
+} from "../src/actions/index";
 
 
 describe('Tests for chaining equation. ', () => {
@@ -116,6 +122,94 @@ describe('Tests for chaining equation. ', () => {
             let desiredArr = ["5", "-", "3"];
 
             expect(deleteLastElement(arr)).to.deep.equal(desiredArr);
+        });
+    });
+
+    describe('Validates pressed key', () => {
+
+        let initialState;
+        let store;
+
+        beforeEach(() => {
+            initialState = {
+                equation: [],
+                result: null,
+                alreadyCalculated: false,
+            };
+            store = createStore(rootReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+        });
+
+        it('Checks if pressed key ("9") belongs to allowed keys to press and if the state is changed', () => {
+            let keyPressed = "9";
+            const digitAction = selectDigitalButton(keyPressed);
+
+            expect(validatePressedKey(keyPressed)).to.deep.equal("digitKey");
+
+            store.dispatch(digitAction);
+
+            expect(buttonsReducer(initialState, digitAction)).to.eql({
+                equation: [keyPressed],
+                result: null,
+                alreadyCalculated: false,
+            });
+        });
+
+        it('Checks if pressed keys ("Enter" && "9") belong to allowed keys to press and if the state is changed', () => {
+            let resultButtonPressed = "Enter";
+            let digitPressed = "9";
+            const resultAction = selectResultButton(resultButtonPressed);
+            const digitAction = selectDigitalButton(digitPressed);
+
+            expect(validatePressedKey(resultButtonPressed)).to.deep.equal("resultKey");
+
+            store.dispatch(digitAction);
+            store.dispatch(resultAction);
+
+            expect(store.getState().buttons).to.eql({
+                equation: [Number(digitPressed)],
+                result: Number(digitPressed),
+                alreadyCalculated: true,
+            });
+        });
+
+        it('Checks if pressed keys ("Backspace" && "9" && "Escape") belong to allowed keys to press and if the state is changed', () => {
+            let resultButtonPressed = "Enter";
+            let CKeyPressed = "Backspace";
+            let ACKeyPressed = "Escape";
+            let digitPressed = "9";
+            let digitPressedTwo = "10";
+            let digitPressedThree = "11";
+
+            const resultAction = selectResultButton(resultButtonPressed);
+            const cleanLastAction = selectCleanLastButton(CKeyPressed);
+            const cleanAllAction = selectCleanAllButton(ACKeyPressed);
+            const digitAction = selectDigitalButton(digitPressed);
+            const digitActionTwo = selectDigitalButton(digitPressedTwo);
+            const digitActionThree = selectDigitalButton(digitPressedThree);
+
+            expect(validatePressedKey(CKeyPressed)).to.deep.equal("CKey");
+            expect(validatePressedKey(ACKeyPressed)).to.deep.equal("ACKey");
+
+            store.dispatch(digitAction);
+            store.dispatch(digitActionTwo);
+            store.dispatch(digitActionThree);
+            store.dispatch(cleanLastAction);
+            store.dispatch(resultAction);
+
+            expect(store.getState().buttons).to.eql({
+                equation: [910],
+                result: 910,
+                alreadyCalculated: true,
+            });
+
+            store.dispatch(digitAction);
+            store.dispatch(digitActionTwo);
+            store.dispatch(cleanAllAction);
+
+            expect(store.getState().buttons).to.eql({
+                equation: [],
+                result: null,
+            });
         });
     })
 });
