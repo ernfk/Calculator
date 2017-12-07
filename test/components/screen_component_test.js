@@ -5,7 +5,7 @@ import {expect, mockComponent} from "../testing_helper"; // used
 import {beforeEach, describe, it} from "mocha/lib/mocha";
 import Screen from "../../src/components/Screen";
 
-describe('Screen component renderer', () => {
+describe('REACT: Screen component renderer', () => {
 
     let component;
 

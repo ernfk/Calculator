@@ -3,7 +3,7 @@ import {expect, mockComponent} from "../testing_helper"; // used
 import {beforeEach, describe, it} from "mocha/lib/mocha";
 import DigitalButton from "../../src/components/DigitalButton";
 
-describe('Digital component tests', () => {
+describe('REACT: Digital component tests', () => {
 
     let component;
 
