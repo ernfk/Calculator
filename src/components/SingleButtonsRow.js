@@ -24,7 +24,7 @@ export class SingleButtonsRow extends Component {
             buttons.push(<OperationButton value={operationButton} key={rowKey + index + 4}/>);
         });
 
-        if (buttons.length < 3) singleButtonsRowStyle = "single-row-less-buttons";
+        singleButtonsRowStyle = buttons.length < 3 ? "single-row-less-buttons" : "single-row";
 
         return (
             <div className={singleButtonsRowStyle}>

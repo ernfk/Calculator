@@ -132,7 +132,7 @@ input {
 }
 
 .single-row-less-buttons {
-    width: 100%;
+    width: 256px;
     display: flex;
     justify-content: flex-start;
     flex-flow: row wrap;

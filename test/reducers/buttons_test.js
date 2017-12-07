@@ -3,7 +3,7 @@ import {expect, mockComponent} from "../testing_helper"; // used
 import {beforeEach, describe, it} from "mocha/lib/mocha";
 import {buttonsReducer} from "../../src/reducers/buttons";
 import {
-    selectCleanAllButton, selectDigitalButton, selectOperationButton,
+    selectCleanAllButton, selectCleanLastButton, selectDigitalButton, selectOperationButton,
     selectResultButton
 } from "../../src/actions/index";
 import {createStore} from "redux";
@@ -116,5 +116,33 @@ describe('Buttons reducer tests', () => {
         });
     });
 
+    it('Handling action: SELECT_CLEAN_LAST_CHARACTER_BUTTON', () => {
+        const cleanLastAction = selectCleanLastButton('C');
+        const digitAction = selectDigitalButton("5");
+
+        store.dispatch(digitAction); // 5
+        store.dispatch(additionAction); // +
+        store.dispatch(cleanLastAction); // <=
+
+        expect(store.getState().buttons).to.eql({
+            equation: ["5"],
+            result: null
+        });
+
+        store.dispatch(subtractionAction); // -
+
+        expect(store.getState().buttons).to.eql({
+            equation: ["5", "-"],
+            result: null
+        });
+
+        store.dispatch(cleanLastAction); // <=
+        store.dispatch(cleanLastAction); // <=
+
+        expect(store.getState().buttons).to.eql({
+            equation: [],
+            result: null
+        });
+    });
 
 });

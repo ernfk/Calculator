@@ -1,4 +1,7 @@
-import {SELECT_DIGITAL_BUTTON, SELECT_CLEAN_ALL_BUTTON, SELECT_OPERATION_BUTTON, SELECT_RESULT_BUTTON} from "./types";
+import {
+    SELECT_DIGITAL_BUTTON, SELECT_CLEAN_ALL_BUTTON, SELECT_OPERATION_BUTTON, SELECT_RESULT_BUTTON,
+    SELECT_CLEAN_LAST_CHARACTER_BUTTON
+} from "./types";
 
 export const selectDigitalButton = (buttonValue) => {
     return {
@@ -24,6 +27,13 @@ export const selectResultButton = (buttonValue) => {
 export const selectCleanAllButton = (buttonValue) => {
     return {
         type: SELECT_CLEAN_ALL_BUTTON,
+        value: buttonValue
+    }
+};
+
+export const selectCleanLastButton = (buttonValue) => {
+    return {
+        type: SELECT_CLEAN_LAST_CHARACTER_BUTTON,
         value: buttonValue
     }
 };
