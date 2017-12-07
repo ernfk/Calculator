@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
 import * as actions from "../actions";
+import {selectCleanLastButton} from "../actions/index";
 
 let operationButtonStyle = "operation-button";
 
@@ -10,11 +11,14 @@ class OperationButton extends Component {
     }
 
     onClick(value) {
-        const {selectOperationButton, selectResultButton, selectCleanAllButton} = this.props;
+        const {selectOperationButton, selectResultButton, selectCleanAllButton, selectCleanLastButton} = this.props;
 
         switch (value) {
             case "AC":
                 selectCleanAllButton(value);
+                break;
+            case "C":
+                selectCleanLastButton(value);
                 break;
             case "=":
                 selectResultButton(value);
@@ -25,8 +29,19 @@ class OperationButton extends Component {
     }
 
     render() {
-        const {value} = this.props;
-        operationButtonStyle = value === "AC" ? "operation-button-ac" : "operation-button";
+        let {value} = this.props;
+
+        switch (value) {
+            case "AC":
+                operationButtonStyle = "operation-button-ac";
+                break;
+            case "C":
+                operationButtonStyle = "operation-button-c";
+                break;
+            default:
+                operationButtonStyle = "operation-button";
+                break;
+        }
 
         return (
             <div className={operationButtonStyle} onClick={this.onClick.bind(this, value)}>
