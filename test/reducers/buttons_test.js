@@ -23,6 +23,7 @@ describe('Buttons reducer tests', () => {
         initialState = {
             equation: [],
             result: null,
+            alreadyCalculated: false,
         };
         store = createStore(rootReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
@@ -43,6 +44,7 @@ describe('Buttons reducer tests', () => {
         expect(buttonsReducer(initialState, action)).to.eql({
             equation: ["5"],
             result: null,
+            alreadyCalculated: false,
         });
     });
 
@@ -50,13 +52,15 @@ describe('Buttons reducer tests', () => {
         expect(buttonsReducer(initialState, additionAction)).to.eql({
             equation: ["+"],
             result: null,
+            alreadyCalculated: false,
         });
     });
 
     it('Handling action: SELECT_RESULT_BUTTON', () => {
         expect(buttonsReducer(initialState, resultAction)).to.eql({
-            equation: [],
+            equation: [undefined],
             result: undefined,
+            alreadyCalculated: true,
         });
     });
 
@@ -70,8 +74,9 @@ describe('Buttons reducer tests', () => {
         store.dispatch(resultAction);
 
         expect(store.getState().buttons).to.eql({
-            equation: ["5", "+", "3"],
-            result: 8
+            equation: [8],
+            result: 8,
+            alreadyCalculated: true,
         });
     });
 
@@ -91,8 +96,9 @@ describe('Buttons reducer tests', () => {
         store.dispatch(resultAction);
 
         expect(store.getState().buttons).to.eql({
-            equation: ["5", "*", "3", "+", "2"],
-            result: 17
+            equation: [17],
+            result: 17,
+            alreadyCalculated: true,
         });
     });
 
@@ -112,7 +118,8 @@ describe('Buttons reducer tests', () => {
 
         expect(store.getState().buttons).to.eql({
             equation: ["5"],
-            result: null
+            result: null,
+            alreadyCalculated: false,
         });
     });
 
@@ -126,14 +133,16 @@ describe('Buttons reducer tests', () => {
 
         expect(store.getState().buttons).to.eql({
             equation: ["5"],
-            result: null
+            result: null,
+            alreadyCalculated: false,
         });
 
         store.dispatch(subtractionAction); // -
 
         expect(store.getState().buttons).to.eql({
             equation: ["5", "-"],
-            result: null
+            result: null,
+            alreadyCalculated: false,
         });
 
         store.dispatch(cleanLastAction); // <=
@@ -141,7 +150,8 @@ describe('Buttons reducer tests', () => {
 
         expect(store.getState().buttons).to.eql({
             equation: [],
-            result: null
+            result: null,
+            alreadyCalculated: false,
         });
     });
 
