@@ -1,7 +1,7 @@
 Tests:
 1. Write tests for calculate method, `Done: 06.12.2017`
 2. Add tests for transform equation. `Done: 06.12.2017`
-3. Tests for components.
+3. Tests for components. `Done: 07.12.2017`
 
 
 Bugs:
