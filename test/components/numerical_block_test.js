@@ -14,9 +14,4 @@ describe('REACT: Numerical block component tests', () => {
     it('NumericalBlock has class name - numerical-block', () => {
         expect(component).to.have.class('numerical-block');
     });
-
-    it('NumericalBlock has SingleButtonsRow', () => {
-       expect(component.find('.single-row')).to.exist;
-    });
-
 });

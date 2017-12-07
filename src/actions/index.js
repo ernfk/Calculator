@@ -1,10 +1,10 @@
-import {SELECT_DIGITAL_BUTTON, SELECT_OPERATION_BUTTON, SELECT_RESULT_BUTTON} from "./types";
+import {SELECT_DIGITAL_BUTTON, SELECT_CLEAN_ALL_BUTTON, SELECT_OPERATION_BUTTON, SELECT_RESULT_BUTTON} from "./types";
 
 export const selectDigitalButton = (buttonValue) => {
-  return {
-      type: SELECT_DIGITAL_BUTTON,
-      value: buttonValue
-  }
+    return {
+        type: SELECT_DIGITAL_BUTTON,
+        value: buttonValue
+    }
 };
 
 export const selectOperationButton = (buttonValue) => {
@@ -17,6 +17,13 @@ export const selectOperationButton = (buttonValue) => {
 export const selectResultButton = (buttonValue) => {
     return {
         type: SELECT_RESULT_BUTTON,
+        value: buttonValue
+    }
+};
+
+export const selectCleanAllButton = (buttonValue) => {
+    return {
+        type: SELECT_CLEAN_ALL_BUTTON,
         value: buttonValue
     }
 };

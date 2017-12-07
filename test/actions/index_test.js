@@ -1,7 +1,10 @@
 // const expect = require('expect'); to.equal -> toEqual
 import {expect, mockComponent} from "../testing_helper"; // used
 import {beforeEach, describe, it} from "mocha/lib/mocha";
-import {selectDigitalButton, selectOperationButton, selectResultButton} from "../../src/actions/index";
+import {
+    selectDigitalButton, selectCleanAllButton, selectOperationButton,
+    selectResultButton
+} from "../../src/actions/index";
 import {SELECT_DIGITAL_BUTTON, SELECT_OPERATION_BUTTON, SELECT_RESULT_BUTTON} from "../../src/actions/types";
 
 
@@ -12,7 +15,7 @@ describe('Actions tests', () => {
             expect(action.type).to.equal(SELECT_DIGITAL_BUTTON);
         });
 
-        it('Has the correct button value', ()=> {
+        it('Has the correct button value', () => {
             const action = selectDigitalButton('5');
             expect(action.value).to.equal('5');
         });
@@ -24,7 +27,7 @@ describe('Actions tests', () => {
             expect(action.type).to.equal(SELECT_OPERATION_BUTTON);
         });
 
-        it('Has the correct button value', ()=> {
+        it('Has the correct button value', () => {
             const action = selectOperationButton('+');
             expect(action.value).to.equal('+');
         });
@@ -36,9 +39,16 @@ describe('Actions tests', () => {
             expect(action.type).to.equal(SELECT_RESULT_BUTTON);
         });
 
-        it('Has the correct button value', ()=> {
+        it('Has the correct button value', () => {
             const action = selectResultButton('=');
             expect(action.value).to.equal('=');
         });
     });
+
+    describe('Action: selectCleanAllButton', () => {
+        it('Has the correct type', () => {
+            const action = selectCleanAllButton('CA');
+            expect(action.value).to.equal('CA')
+        })
+    })
 });

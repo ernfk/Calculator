@@ -1,4 +1,7 @@
-import {SELECT_DIGITAL_BUTTON, SELECT_OPERATION_BUTTON, SELECT_RESULT_BUTTON} from "../actions/types";
+import {
+    SELECT_CLEAN_ALL_BUTTON, SELECT_DIGITAL_BUTTON, SELECT_OPERATION_BUTTON,
+    SELECT_RESULT_BUTTON
+} from "../actions/types";
 
 export const initialState = {
     equation: [],
@@ -13,6 +16,11 @@ export const buttonsReducer = (state = initialState, action) => {
             return {...state, equation: checkSings(state.equation, action.value)};
         case SELECT_RESULT_BUTTON:
             return {...state, result: calculate(state.equation)};
+        case SELECT_CLEAN_ALL_BUTTON:
+            return {
+                equation: [],
+                result: null,
+            };
         default:
             return initialState;
     }
