@@ -10,13 +10,14 @@ export class Screen extends Component {
     }
 
     render() {
-        const {equation, result} = this.props;
+        const {equation, result, alreadyCalculated} = this.props;
         const equationToShow = prepareEquationToShow(equation);
         let showingData = null;
 
-
         if (result === 'Bad input!') screenStyle = "screen-error";
-        showingData = result === null ? equationToShow : result;
+        if (result === null) screenStyle = "screen";
+
+        showingData = getDateToShow(result, alreadyCalculated, equationToShow);
 
         return (
             <div>
@@ -33,7 +34,8 @@ Screen.propTypes = {
 const mapStateToProps = (state) => {
     return {
         equation: state.buttons.equation,
-        result: state.buttons.result
+        result: state.buttons.result,
+        alreadyCalculated: state.buttons.alreadyCalculated
     }
 };
 
@@ -47,4 +49,29 @@ export const prepareEquationToShow = (equation) => {
         })
         .join('')
         .trim();
+};
+
+/**
+ * Due to:
+ * 1) result value
+ * 2) alreadyCalculatedState - represents flag boolean:
+ *      - true means we've already some result of calculation,
+ *      - false - not yet.
+ * determines which data should be rendered: equation before calculation or already calculated result.
+ * @param result
+ * @param alreadyCalculatedState
+ * @param equationToShow
+ * @returns {*}
+ */
+const getDateToShow = (result, alreadyCalculatedState, equationToShow) => {
+    let showingData;
+
+    if (result === null && alreadyCalculatedState === false) {
+        showingData = equationToShow;
+    } else if (result !== null && alreadyCalculatedState === true) {
+        showingData = result;
+    } else {
+        showingData = equationToShow;
+    }
+    return showingData;
 };
