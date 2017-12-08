@@ -1,7 +1,7 @@
 // const expect = require('expect'); to.equal -> toEqual
 import {expect, mockComponent} from "./testing_helper"; // used
 import {beforeEach, describe, it} from "mocha/lib/mocha";
-import {prepareEquationToShow, validatePressedKey} from "../src/components/Screen";
+import {isElementInArray, prepareEquationToShow, validatePressedKey} from "../src/components/Screen";
 import {
     buttonsReducer, calculate, deleteLastElement, getLastElement,
     verifyOperationSings
@@ -220,6 +220,14 @@ describe('Tests for chaining equation. ', () => {
         it('getLastElement() from [1, 2, 3, "4"] - "4"', () => {
             let arr = [1, 2, 3, "4"];
             expect(getLastElement(arr)).to.eql("4");
+        });
+    });
+
+    describe('Search element in given array method', () => {
+        it('isElementInArray() "cat" from [1, "dog", 2, "3", "cat"]', () => {
+            let arr = [1, "dog", 2, "3", "cat"];
+            expect(isElementInArray(arr, "cat")).to.be.true;
+            expect(isElementInArray(arr, "mouse")).to.be.false;
         });
     });
 

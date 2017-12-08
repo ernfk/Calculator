@@ -12,7 +12,7 @@ export class NumericalBlock extends Component {
         return (
             <div className="numerical-block">
                 <SingleButtonsRow digitalButtonsPerRow={[]}
-                                  operationButtonsPerRow={["AC", "C"]}
+                                  operationButtonsPerRow={["AC", "C", "(", ")"]}
                                   rowKey={40}
                                   key={4}
                 />

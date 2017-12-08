@@ -127,6 +127,10 @@ export const checkLastElement = (equationStateToVerify, alreadyResult) => {
     return lastElement === "" || lastElement === alreadyResult;
 };
 
+/**
+ * Returns last element of given array
+ * @param arrayToVerify
+ */
 export const getLastElement = (arrayToVerify) => {
     return arrayToVerify.slice(arrayToVerify.length - 1, arrayToVerify.length)[0];
 };

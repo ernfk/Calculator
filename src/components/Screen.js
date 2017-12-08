@@ -11,7 +11,7 @@ export class Screen extends Component {
     }
 
     onKeyPressedDown(event) {
-        const {selectDigitalButton, selectOperationButton, selectResultButton, selectCleanAllButton, selectCleanLastButton} = this.props;
+        const {selectDigitalButton, selectOperationButton, selectResultButton, selectCleanAllButton, selectCleanLastButton, selectBracketButton} = this.props;
         let key = event.key;
         let keyType = validatePressedKey(event.key);
         switch (keyType) {
@@ -30,7 +30,11 @@ export class Screen extends Component {
             case "CKey":
                 selectCleanLastButton(key);
                 break;
-            default: throw new TypeError("Unknown key type.");
+            case "bracketKey":
+                selectBracketButton(key);
+                break;
+            default:
+                throw new TypeError("Unknown key type.");
         }
     }
 
@@ -114,7 +118,10 @@ export const validatePressedKey = (pressedKey) => {
         keyType = "ACKey"
     } else if (isCKey(pressedKey)) {
         keyType = "CKey"
-    } else {
+    } else if (isBracketKey(pressedKey)) {
+        keyType = "bracketKey"
+    }
+    else {
         throw new TypeError('Unknown press key: ' + pressedKey);
     }
     return keyType;
@@ -122,20 +129,12 @@ export const validatePressedKey = (pressedKey) => {
 
 const isDigit = (pressedKey) => {
     let digitsKeys = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
-
-    let index = digitsKeys.findIndex((element) => {
-        return element === pressedKey;
-    });
-    if (index !== -1) return true;
+    return isElementInArray(digitsKeys, pressedKey);
 };
 
 const isOperationKey = (pressedKey) => {
     let operationKeys = ["+", "-", ".", "/", "*"];
-
-    let index = operationKeys.findIndex((element) => {
-        return element === pressedKey;
-    });
-    if (index !== -1) return true;
+    return isElementInArray(operationKeys, pressedKey);
 };
 
 export const isResultKey = (pressedKey) => {
@@ -151,4 +150,14 @@ export const isACKey = (pressedKey) => {
 export const isCKey = (pressedKey) => {
     let resultKey = "Backspace";
     if (pressedKey === resultKey) return true;
+};
+
+export const isBracketKey = (pressedKey) => {
+    let bracketKeys = ["(", ")"];
+    return isElementInArray(bracketKeys, pressedKey);
+};
+
+export const isElementInArray = (array, elementToFind) => {
+    let index = array.findIndex(element => element === elementToFind);
+    return index !== -1;
 };
