@@ -65,11 +65,7 @@ const checkSings = (equation, newValue) => {
     let toFilter = [...equation, newValue];
     let lastElement = getLastElement(equation);
 
-    if (lastElement === ")" || lastElement === "(") {
-        return toFilter;
-    } else {
-        return verifyOperationSings(toFilter);
-    }
+    return lastElement === ")" || lastElement === "(" ? toFilter : verifyOperationSings(toFilter);
 };
 
 /**
@@ -110,9 +106,8 @@ export const checkIfLastElementIsResultOrEmpty = (equationStateToVerify, already
 
     if (alreadyCalculatedState === true || lastElement === "") {
         return [...equationStateToVerify, ""];
-    } else {
-        return [...equationStateToVerify, newDigit];
     }
+    return [...equationStateToVerify, newDigit];
 };
 
 /**

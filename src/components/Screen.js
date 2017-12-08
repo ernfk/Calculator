@@ -34,7 +34,8 @@ export class Screen extends Component {
                 selectBracketButton(key);
                 break;
             default:
-                throw new TypeError("Unknown key type.");
+                return;
+                break;
         }
     }
 
@@ -122,7 +123,7 @@ export const validatePressedKey = (pressedKey) => {
         keyType = "bracketKey"
     }
     else {
-        throw new TypeError('Unknown press key: ' + pressedKey);
+        console.warn("Unknown key type: ", pressedKey);
     }
     return keyType;
 };
