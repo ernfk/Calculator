@@ -2,7 +2,10 @@
 import {expect, mockComponent} from "./testing_helper"; // used
 import {beforeEach, describe, it} from "mocha/lib/mocha";
 import {prepareEquationToShow, validatePressedKey} from "../src/components/Screen";
-import {buttonsReducer, calculate, deleteLastElement, verifyOperationSings} from "../src/reducers/buttons";
+import {
+    buttonsReducer, calculate, deleteLastElement, getLastElement,
+    verifyOperationSings
+} from "../src/reducers/buttons";
 import {rootReducer} from "../src/reducers/index";
 import {createStore} from "redux";
 import {
@@ -211,5 +214,13 @@ describe('Tests for chaining equation. ', () => {
                 result: null,
             });
         });
-    })
+    });
+
+    describe('Gets last element from given array method', () => {
+        it('getLastElement() from [1, 2, 3, "4"] - "4"', () => {
+            let arr = [1, 2, 3, "4"];
+            expect(getLastElement(arr)).to.eql("4");
+        });
+    });
+
 });

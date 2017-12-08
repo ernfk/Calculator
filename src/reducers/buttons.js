@@ -1,4 +1,10 @@
+/**
+ * Calculate equation from array elements.
+ * @param equation
+ * @returns {*}
+ */
 import {
+    SELECT_BRACKET_BUTTON,
     SELECT_CLEAN_ALL_BUTTON, SELECT_CLEAN_LAST_CHARACTER_BUTTON, SELECT_DIGITAL_BUTTON, SELECT_OPERATION_BUTTON,
     SELECT_RESULT_BUTTON
 } from "../actions/types";
@@ -32,17 +38,18 @@ export const buttonsReducer = (state = initialState, action) => {
                 result: null,
             };
         case SELECT_CLEAN_LAST_CHARACTER_BUTTON:
-            return {...state, equation: deleteLastElement(state.equation, state.result)}; // usuwanie wyniku
+            return {...state, equation: deleteLastElement(state.equation, state.result)};
+        case SELECT_BRACKET_BUTTON:
+            return {
+                ...state,
+                equation: checkIfLastElementIsResultOrEmpty(state.equation, state.alreadyCalculated, action.value),
+                alreadyCalculated: checkLastElement(state.equation, state.result)
+            };
         default:
             return initialState;
     }
 };
 
-/**
- * Calculate equation from array elements.
- * @param equation
- * @returns {*}
- */
 export const calculate = (equation) => {
     let result;
     try {
@@ -56,7 +63,13 @@ export const calculate = (equation) => {
 
 const checkSings = (equation, newValue) => {
     let toFilter = [...equation, newValue];
-    return verifyOperationSings(toFilter);
+    let lastElement = getLastElement(equation);
+
+    if (lastElement === ")" || lastElement === "(") {
+        return toFilter;
+    } else {
+        return verifyOperationSings(toFilter);
+    }
 };
 
 /**
@@ -67,6 +80,8 @@ const checkSings = (equation, newValue) => {
  */
 export const verifyOperationSings = (arrayToVerify) => {
     return arrayToVerify.filter((currChar, index, arr) => {
+        if (currChar === ")" || currChar === "(") return currChar;
+        if (isNaN(currChar) && (arr[index + 1] === "(" || arr[index + 1] === ")")) return currChar;
         return index + 1 === arr.length || !(isNaN(currChar) && isNaN(arr[index + 1]));
     });
 };
@@ -77,8 +92,8 @@ export const verifyOperationSings = (arrayToVerify) => {
  * @param alreadyResult
  */
 export const deleteLastElement = (arrayToVerify, alreadyResult) => {
-    let lastElement = arrayToVerify.slice(arrayToVerify.length - 1, arrayToVerify.length);
-    if (lastElement[0] === alreadyResult) return arrayToVerify;
+    let lastElement = getLastElement(arrayToVerify);
+    if (lastElement === alreadyResult) return arrayToVerify;
     return arrayToVerify.slice(0, arrayToVerify.length - 1);
 };
 
@@ -108,6 +123,10 @@ export const checkIfLastElementIsResultOrEmpty = (equationStateToVerify, already
  * @returns {boolean}
  */
 export const checkLastElement = (equationStateToVerify, alreadyResult) => {
-    let lastElement = equationStateToVerify.slice(equationStateToVerify.length - 1, equationStateToVerify.length);
-    return lastElement[0] === "" || lastElement[0] === alreadyResult;
+    let lastElement = getLastElement(equationStateToVerify);
+    return lastElement === "" || lastElement === alreadyResult;
+};
+
+export const getLastElement = (arrayToVerify) => {
+    return arrayToVerify.slice(arrayToVerify.length - 1, arrayToVerify.length)[0];
 };

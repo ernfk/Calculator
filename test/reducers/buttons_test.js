@@ -3,6 +3,7 @@ import {expect, mockComponent} from "../testing_helper"; // used
 import {beforeEach, describe, it} from "mocha/lib/mocha";
 import {buttonsReducer} from "../../src/reducers/buttons";
 import {
+    selectBracketButton,
     selectCleanAllButton, selectCleanLastButton, selectDigitalButton, selectOperationButton,
     selectResultButton
 } from "../../src/actions/index";
@@ -152,6 +153,70 @@ describe('Buttons reducer tests', () => {
             equation: [],
             result: null,
             alreadyCalculated: false,
+        });
+    });
+
+    it('Handling action: SELECT_BRACKET_BUTTON', () => {
+        const bracketAction = selectBracketButton("(");
+        const digitAction = selectDigitalButton("5");
+        const digitActionTwo = selectDigitalButton("2");
+        const bracketActionTwo = selectBracketButton(")");
+
+        store.dispatch(bracketAction);
+        store.dispatch(digitAction);
+        store.dispatch(additionAction);
+        store.dispatch(digitActionTwo);
+        store.dispatch(bracketActionTwo);
+
+        expect(store.getState().buttons).to.eql({
+            equation: ["(", "5", "+", "2", ")"],
+            result: null,
+            alreadyCalculated: false,
+        });
+
+        store.dispatch(multiplicationAction);
+        store.dispatch(digitActionTwo);
+
+        expect(store.getState().buttons).to.eql({
+            equation: ["(", "5", "+", "2", ")", "*", "2"],
+            result: null,
+            alreadyCalculated: false,
+        });
+
+        store.dispatch(multiplicationAction);
+
+        store.dispatch(divisionAction);
+        store.dispatch(digitAction);
+
+        expect(store.getState().buttons).to.eql({
+            equation: ["(", "5", "+", "2", ")", "*", "2", "/", "5"],
+            result: null,
+            alreadyCalculated: false,
+        });
+
+        store.dispatch(additionAction);
+        store.dispatch(bracketAction);
+        store.dispatch(bracketAction);
+        store.dispatch(bracketAction);
+        store.dispatch(digitAction);
+        store.dispatch(additionAction);
+        store.dispatch(digitActionTwo);
+        store.dispatch(bracketActionTwo);
+        store.dispatch(bracketActionTwo);
+        store.dispatch(bracketActionTwo);
+
+        expect(store.getState().buttons).to.eql({
+            equation: ["(", "5", "+", "2", ")", "*", "2", "/", "5", "+", "(", "(", "(", "5", "+", "2", ")", ")", ")"],
+            result: null,
+            alreadyCalculated: false,
+        });
+
+        store.dispatch(resultAction);
+
+        expect(store.getState().buttons).to.eql({
+            equation: [9.8],
+            result: 9.8,
+            alreadyCalculated: true,
         });
     });
 

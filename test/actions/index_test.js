@@ -3,9 +3,10 @@ import {expect, mockComponent} from "../testing_helper"; // used
 import {beforeEach, describe, it} from "mocha/lib/mocha";
 import {
     selectDigitalButton, selectCleanAllButton, selectOperationButton,
-    selectResultButton, selectCleanLastButton
+    selectResultButton, selectCleanLastButton, selectBracketButton
 } from "../../src/actions/index";
 import {
+    SELECT_BRACKET_BUTTON,
     SELECT_CLEAN_ALL_BUTTON, SELECT_CLEAN_LAST_CHARACTER_BUTTON, SELECT_DIGITAL_BUTTON, SELECT_OPERATION_BUTTON,
     SELECT_RESULT_BUTTON
 } from "../../src/actions/types";
@@ -69,6 +70,21 @@ describe('Actions tests', () => {
         it('Has the correct button value', () => {
             const action = selectCleanLastButton('C');
             expect(action.value).to.equal('C')
-        })
-    })
+        });
+    });
+
+    describe('Action: selectBracketButton', () => {
+        it('Has the correct type', () => {
+            const action = selectBracketButton();
+            expect(action.type).to.equal(SELECT_BRACKET_BUTTON);
+        });
+
+        it('Has the correct button value', () => {
+            const action = selectBracketButton('(');
+            expect(action.value).to.equal('(');
+
+            const actionTwo = selectBracketButton(')');
+            expect(actionTwo.value).to.equal(')')
+        });
+    });
 });
