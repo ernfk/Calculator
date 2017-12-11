@@ -4,7 +4,7 @@ import {beforeEach, describe, it} from "mocha/lib/mocha";
 import {isElementInArray, prepareEquationToShow, validatePressedKey} from "../src/components/Screen";
 import {
     buttonsReducer, calculate, deleteLastElement, getLastElement,
-    verifyOperationSings
+    verifyOperationSings, formatDate
 } from "../src/reducers/buttons";
 import {rootReducer} from "../src/reducers/index";
 import {createStore} from "redux";
@@ -174,7 +174,10 @@ describe('Tests for chaining equation. ', () => {
                 equation: [Number(digitPressed)],
                 result: Number(digitPressed),
                 alreadyCalculated: true,
-                savedResults: [Number(digitPressed)]
+                savedResults: [{
+                    date: formatDate(),
+                    result: Number(digitPressed)
+                }]
             });
         });
 
@@ -206,7 +209,10 @@ describe('Tests for chaining equation. ', () => {
                 equation: [910],
                 result: 910,
                 alreadyCalculated: true,
-                savedResults: [910]
+                savedResults: [{
+                    date: formatDate(),
+                    result: 910
+                }]
             });
 
             store.dispatch(digitAction);
@@ -217,7 +223,10 @@ describe('Tests for chaining equation. ', () => {
                 equation: [],
                 result: null,
                 alreadyCalculated: false,
-                savedResults: [910]
+                savedResults: [{
+                    date: formatDate(),
+                    result: 910
+                }]
             });
         });
     });
@@ -236,5 +245,4 @@ describe('Tests for chaining equation. ', () => {
             expect(isElementInArray(arr, "mouse")).to.be.false;
         });
     });
-
 });

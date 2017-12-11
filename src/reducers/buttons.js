@@ -30,7 +30,7 @@ export const buttonsReducer = (state = initialState, action) => {
                 result: calculate(state.equation),
                 alreadyCalculated: true,
                 equation: [calculate(state.equation)],
-                savedResults: [...state.savedResults, calculate(state.equation)]
+                savedResults: [...state.savedResults, getDateWithResult(state.equation)]
             };
         case SELECT_CLEAN_ALL_BUTTON:
             return {
@@ -135,4 +135,27 @@ export const checkLastElement = (equationStateToVerify, alreadyResult) => {
  */
 export const getLastElement = (arrayToVerify) => {
     return arrayToVerify.slice(arrayToVerify.length - 1, arrayToVerify.length)[0];
+};
+
+export const getDateWithResult = (equation) => {
+    return {result: calculate(equation), date: formatDate()};
+};
+
+
+export const formatDate = () => {
+    let date = new Date();
+    let year = date.getFullYear();
+    let month = date.getMonth() + 1;
+    month = month < 10 ? "0" + month : month;
+    let day = date.getDate();
+    day = day < 10 ? "0" + day : day;
+
+
+    let hour = date.getHours();
+    let minutes = date.getMinutes();
+    minutes = minutes < 10 ? "0" + minutes : minutes;
+    let seconds = date.getSeconds();
+    seconds = seconds < 10 ? "0" + seconds : seconds;
+
+    return year + "-" + month + "-" + day + " " + hour + ":" + minutes + ":" + seconds;
 };
