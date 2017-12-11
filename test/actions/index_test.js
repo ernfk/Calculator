@@ -2,12 +2,19 @@
 import {expect, mockComponent} from "../testing_helper"; // used
 import {beforeEach, describe, it} from "mocha/lib/mocha";
 import {
-    selectDigitalButton, selectCleanAllButton, selectOperationButton,
-    selectResultButton, selectCleanLastButton, selectBracketButton
+    selectBracketButton,
+    selectCleanAllButton,
+    selectCleanLastButton,
+    selectDigitalButton,
+    selectOperationButton,
+    selectResultButton
 } from "../../src/actions/index";
 import {
     SELECT_BRACKET_BUTTON,
-    SELECT_CLEAN_ALL_BUTTON, SELECT_CLEAN_LAST_CHARACTER_BUTTON, SELECT_DIGITAL_BUTTON, SELECT_OPERATION_BUTTON,
+    SELECT_CLEAN_ALL_BUTTON,
+    SELECT_CLEAN_LAST_CHARACTER_BUTTON,
+    SELECT_DIGITAL_BUTTON,
+    SELECT_OPERATION_BUTTON,
     SELECT_RESULT_BUTTON
 } from "../../src/actions/types";
 

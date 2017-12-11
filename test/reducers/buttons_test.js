@@ -1,10 +1,13 @@
 // const expect = require('expect'); to.equal -> toEqual
-import {expect, mockComponent} from "../testing_helper"; // used
 import {beforeEach, describe, it} from "mocha/lib/mocha";
+import {expect, mockComponent} from "../testing_helper"; // used
 import {buttonsReducer} from "../../src/reducers/buttons";
 import {
     selectBracketButton,
-    selectCleanAllButton, selectCleanLastButton, selectDigitalButton, selectOperationButton,
+    selectCleanAllButton,
+    selectCleanLastButton,
+    selectDigitalButton,
+    selectOperationButton,
     selectResultButton
 } from "../../src/actions/index";
 import {createStore} from "redux";
@@ -25,6 +28,7 @@ describe('Buttons reducer tests', () => {
             equation: [],
             result: null,
             alreadyCalculated: false,
+            savedResults: []
         };
         store = createStore(rootReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
@@ -46,6 +50,7 @@ describe('Buttons reducer tests', () => {
             equation: ["5"],
             result: null,
             alreadyCalculated: false,
+            savedResults: []
         });
     });
 
@@ -54,6 +59,7 @@ describe('Buttons reducer tests', () => {
             equation: ["+"],
             result: null,
             alreadyCalculated: false,
+            savedResults: []
         });
     });
 
@@ -62,6 +68,7 @@ describe('Buttons reducer tests', () => {
             equation: [undefined],
             result: undefined,
             alreadyCalculated: true,
+            savedResults: [undefined]
         });
     });
 
@@ -78,6 +85,7 @@ describe('Buttons reducer tests', () => {
             equation: [8],
             result: 8,
             alreadyCalculated: true,
+            savedResults: [8]
         });
     });
 
@@ -100,6 +108,7 @@ describe('Buttons reducer tests', () => {
             equation: [17],
             result: 17,
             alreadyCalculated: true,
+            savedResults: [17]
         });
     });
 
@@ -112,7 +121,9 @@ describe('Buttons reducer tests', () => {
 
         expect(store.getState().buttons).to.eql({
             equation: [],
-            result: null
+            result: null,
+            alreadyCalculated: false,
+            savedResults: []
         });
 
         store.dispatch(digitAction);
@@ -121,6 +132,7 @@ describe('Buttons reducer tests', () => {
             equation: ["5"],
             result: null,
             alreadyCalculated: false,
+            savedResults: []
         });
     });
 
@@ -136,6 +148,7 @@ describe('Buttons reducer tests', () => {
             equation: ["5"],
             result: null,
             alreadyCalculated: false,
+            savedResults: []
         });
 
         store.dispatch(subtractionAction); // -
@@ -144,6 +157,7 @@ describe('Buttons reducer tests', () => {
             equation: ["5", "-"],
             result: null,
             alreadyCalculated: false,
+            savedResults: []
         });
 
         store.dispatch(cleanLastAction); // <=
@@ -153,6 +167,7 @@ describe('Buttons reducer tests', () => {
             equation: [],
             result: null,
             alreadyCalculated: false,
+            savedResults: []
         });
     });
 
@@ -172,6 +187,7 @@ describe('Buttons reducer tests', () => {
             equation: ["(", "5", "+", "2", ")"],
             result: null,
             alreadyCalculated: false,
+            savedResults: []
         });
 
         store.dispatch(multiplicationAction);
@@ -181,6 +197,7 @@ describe('Buttons reducer tests', () => {
             equation: ["(", "5", "+", "2", ")", "*", "2"],
             result: null,
             alreadyCalculated: false,
+            savedResults: []
         });
 
         store.dispatch(multiplicationAction);
@@ -192,6 +209,7 @@ describe('Buttons reducer tests', () => {
             equation: ["(", "5", "+", "2", ")", "*", "2", "/", "5"],
             result: null,
             alreadyCalculated: false,
+            savedResults: []
         });
 
         store.dispatch(additionAction);
@@ -209,6 +227,7 @@ describe('Buttons reducer tests', () => {
             equation: ["(", "5", "+", "2", ")", "*", "2", "/", "5", "+", "(", "(", "(", "5", "+", "2", ")", ")", ")"],
             result: null,
             alreadyCalculated: false,
+            savedResults: []
         });
 
         store.dispatch(resultAction);
@@ -217,6 +236,55 @@ describe('Buttons reducer tests', () => {
             equation: [9.8],
             result: 9.8,
             alreadyCalculated: true,
+            savedResults: [9.8]
+        });
+    });
+
+    it('Saves result to savesResults after couple of calculation', () => {
+        const cleanAllAction = selectCleanAllButton('AC');
+        const digitAction = selectDigitalButton("5");
+        const digitActionTwo = selectDigitalButton("2");
+
+        store.dispatch(digitAction);
+        store.dispatch(additionAction);
+        store.dispatch(digitActionTwo);
+        store.dispatch(resultAction);
+
+        expect(store.getState().buttons).to.eql({
+            equation: [7],
+            result: 7,
+            alreadyCalculated: true,
+            savedResults: [7]
+        });
+
+        store.dispatch(cleanAllAction);
+
+        expect(store.getState().buttons).to.eql({
+            equation: [],
+            result: null,
+            alreadyCalculated: false,
+            savedResults: [7]
+        });
+
+        store.dispatch(digitAction);
+        store.dispatch(additionAction);
+        store.dispatch(digitActionTwo);
+        store.dispatch(resultAction);
+
+        expect(store.getState().buttons).to.eql({
+            equation: [7],
+            result: 7,
+            alreadyCalculated: true,
+            savedResults: [7, 7]
+        });
+
+        store.dispatch(cleanAllAction);
+
+        expect(store.getState().buttons).to.eql({
+            equation: [],
+            result: null,
+            alreadyCalculated: false,
+            savedResults: [7, 7]
         });
     });
 

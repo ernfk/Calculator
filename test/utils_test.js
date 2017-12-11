@@ -138,6 +138,7 @@ describe('Tests for chaining equation. ', () => {
                 equation: [],
                 result: null,
                 alreadyCalculated: false,
+                savedResults: []
             };
             store = createStore(rootReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
         });
@@ -154,6 +155,7 @@ describe('Tests for chaining equation. ', () => {
                 equation: [keyPressed],
                 result: null,
                 alreadyCalculated: false,
+                savedResults: []
             });
         });
 
@@ -172,6 +174,7 @@ describe('Tests for chaining equation. ', () => {
                 equation: [Number(digitPressed)],
                 result: Number(digitPressed),
                 alreadyCalculated: true,
+                savedResults: [Number(digitPressed)]
             });
         });
 
@@ -203,6 +206,7 @@ describe('Tests for chaining equation. ', () => {
                 equation: [910],
                 result: 910,
                 alreadyCalculated: true,
+                savedResults: [910]
             });
 
             store.dispatch(digitAction);
@@ -212,6 +216,8 @@ describe('Tests for chaining equation. ', () => {
             expect(store.getState().buttons).to.eql({
                 equation: [],
                 result: null,
+                alreadyCalculated: false,
+                savedResults: [910]
             });
         });
     });

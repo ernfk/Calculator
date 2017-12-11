@@ -3,7 +3,7 @@ import {buttonsReducer} from "./buttons";
 
 
 export const rootReducer = combineReducers({
-    buttons: buttonsReducer
+    buttons: buttonsReducer,
 });
 
 export default rootReducer;

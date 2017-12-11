@@ -1,11 +1,9 @@
-/**
- * Calculate equation from array elements.
- * @param equation
- * @returns {*}
- */
 import {
     SELECT_BRACKET_BUTTON,
-    SELECT_CLEAN_ALL_BUTTON, SELECT_CLEAN_LAST_CHARACTER_BUTTON, SELECT_DIGITAL_BUTTON, SELECT_OPERATION_BUTTON,
+    SELECT_CLEAN_ALL_BUTTON,
+    SELECT_CLEAN_LAST_CHARACTER_BUTTON,
+    SELECT_DIGITAL_BUTTON,
+    SELECT_OPERATION_BUTTON,
     SELECT_RESULT_BUTTON
 } from "../actions/types";
 
@@ -13,6 +11,7 @@ export const initialState = {
     equation: [],
     result: null,
     alreadyCalculated: false,
+    savedResults: []
 };
 
 export const buttonsReducer = (state = initialState, action) => {
@@ -30,12 +29,15 @@ export const buttonsReducer = (state = initialState, action) => {
                 ...state,
                 result: calculate(state.equation),
                 alreadyCalculated: true,
-                equation: [calculate(state.equation)]
+                equation: [calculate(state.equation)],
+                savedResults: [...state.savedResults, calculate(state.equation)]
             };
         case SELECT_CLEAN_ALL_BUTTON:
             return {
+                ...state,
                 equation: [],
                 result: null,
+                alreadyCalculated: false
             };
         case SELECT_CLEAN_LAST_CHARACTER_BUTTON:
             return {...state, equation: deleteLastElement(state.equation, state.result)};
@@ -50,6 +52,11 @@ export const buttonsReducer = (state = initialState, action) => {
     }
 };
 
+/**
+ * Calculate equation from array elements.
+ * @param equation
+ * @returns {*}
+ */
 export const calculate = (equation) => {
     let result;
     try {
