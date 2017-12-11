@@ -9,12 +9,20 @@ export class History extends Component {
 
     render() {
         const {savedResults} = this.props;
-        console.log(savedResults);
         return (
             <div className="history-title">
                 HISTORY OF CALCULATIONS
-                {savedResults.map(eachResult => {
-                    return <div className="history-result"> {eachResult.date} {eachResult.result} </div>
+                {savedResults.map((eachResult, index) => {
+                    return (
+                        <div className="history-result"
+                             key={index}
+                             style={{color: "rgba(0, 0, 0," + `${1 - index * 0.15}` + ")"}}
+                        >
+                            {index + 1 + ")  "}
+                            {eachResult.date}
+                            {" : "}
+                            {eachResult.result}
+                        </div> )
                 })}
             </div>
         );
