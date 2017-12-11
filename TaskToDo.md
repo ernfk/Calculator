@@ -12,7 +12,7 @@ Improvements:
 2. Add button for erasing last put symbols <=. `Done: 07.12.2017`
 3. Add buttons: ) and ( for more complex equations. `Done: 08.12.2017`
 4. Add possibility to write on screen equation with number keys. `Done: 07.12.2017`
-5. Add warning for user that coma is not used only dot for floatings.
+5. Change `,` to `.` `Done: 11.12.2017`
 
 Additional improvements for future:
 1. Add history of last calculations.

@@ -13,6 +13,7 @@ export class Screen extends Component {
     onKeyPressedDown(event) {
         const {selectDigitalButton, selectOperationButton, selectResultButton, selectCleanAllButton, selectCleanLastButton, selectBracketButton} = this.props;
         let key = event.key;
+
         let keyType = validatePressedKey(event.key);
         switch (keyType) {
             case "digitKey":
@@ -33,6 +34,10 @@ export class Screen extends Component {
             case "bracketKey":
                 selectBracketButton(key);
                 break;
+            case "dot": {
+                selectOperationButton(".");
+                break;
+            }
             default:
                 return;
                 break;
@@ -110,19 +115,20 @@ export const validatePressedKey = (pressedKey) => {
     let keyType;
 
     if (isDigit(pressedKey)) {
-        keyType = "digitKey"
+        keyType = "digitKey";
     } else if (isOperationKey(pressedKey)) {
-        keyType = "operationKey"
+        keyType = "operationKey";
     } else if (isResultKey(pressedKey)) {
-        keyType = "resultKey"
+        keyType = "resultKey";
     } else if (isACKey(pressedKey)) {
-        keyType = "ACKey"
+        keyType = "ACKey";
     } else if (isCKey(pressedKey)) {
-        keyType = "CKey"
+        keyType = "CKey";
     } else if (isBracketKey(pressedKey)) {
-        keyType = "bracketKey"
-    }
-    else {
+        keyType = "bracketKey";
+    } else if (pressedKey === ",") {
+        keyType = "dot";
+    } else {
         console.warn("Unknown key type: ", pressedKey);
     }
     return keyType;
@@ -158,6 +164,12 @@ export const isBracketKey = (pressedKey) => {
     return isElementInArray(bracketKeys, pressedKey);
 };
 
+/**
+ * Checks if given elements exists in given array.
+ * @param array
+ * @param elementToFind
+ * @returns {boolean}
+ */
 export const isElementInArray = (array, elementToFind) => {
     let index = array.findIndex(element => element === elementToFind);
     return index !== -1;
