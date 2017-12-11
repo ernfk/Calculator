@@ -1,12 +1,17 @@
 body {
     background-image: url("mochaGrunge.png");
     padding: 20px;
+    display: flex;
+    justify-content: space-around;
 }
 
 .calculator-placement {
-    margin: auto;
+    margin: 0 100px;
+}
+
+.placement {
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
 }
 
 .container-title {
@@ -161,4 +166,24 @@ input {
     justify-content: center;
     font-family: 'Amatic SC';
     font-size: 1.0em;
+}
+
+/* History */
+.history-container {
+    margin: 0 100px;
+    border: 2px #000000 solid;
+    border-radius: 10px;
+    width: 600px;
+    height: 500px;
+    background-color: rgba(191,215,234, 0.28);
+
+}
+
+.history-title {
+    margin-top: 10px;
+    font-family: 'Orbitron', serif;
+    font-size: 18px;
+    color: #ffffff;
+    font-weight: 300;
+    text-align: center;
 }
