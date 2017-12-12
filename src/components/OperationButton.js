@@ -28,6 +28,9 @@ class OperationButton extends Component {
             case ")":
                 selectBracketButton(value);
                 break;
+            case "M+":
+                window.alert('Finish me');
+                break;
             default:
                 selectOperationButton(value)
         }

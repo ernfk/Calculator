@@ -2,7 +2,6 @@ import React, {Component} from "react";
 import {SingleButtonsRow} from "./SingleButtonsRow";
 
 
-
 export class NumericalBlock extends Component {
     constructor(props) {
         super(props);
@@ -12,7 +11,7 @@ export class NumericalBlock extends Component {
         return (
             <div className="numerical-block">
                 <SingleButtonsRow digitalButtonsPerRow={[]}
-                                  operationButtonsPerRow={["AC", "C", "(", ")"]}
+                                  operationButtonsPerRow={["AC", "C", "(", ")", "M+"]}
                                   rowKey={40}
                                   key={4}
                 />
