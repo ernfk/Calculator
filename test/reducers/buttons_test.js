@@ -6,7 +6,7 @@ import {
     selectBracketButton,
     selectCleanAllButton,
     selectCleanLastButton,
-    selectDigitalButton,
+    selectDigitalButton, selectMemoryButton,
     selectOperationButton,
     selectResultButton
 } from "../../src/actions/index";
@@ -28,7 +28,8 @@ describe('Buttons reducer tests', () => {
             equation: [],
             result: null,
             alreadyCalculated: false,
-            savedResults: []
+            savedResults: [],
+            memory: []
         };
         store = createStore(rootReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
@@ -50,7 +51,8 @@ describe('Buttons reducer tests', () => {
             equation: ["5"],
             result: null,
             alreadyCalculated: false,
-            savedResults: []
+            savedResults: [],
+            memory: []
         });
     });
 
@@ -59,7 +61,8 @@ describe('Buttons reducer tests', () => {
             equation: ["+"],
             result: null,
             alreadyCalculated: false,
-            savedResults: []
+            savedResults: [],
+            memory: []
         });
     });
 
@@ -72,7 +75,8 @@ describe('Buttons reducer tests', () => {
                 date: formatDate(),
                 equation: [],
                 result: undefined
-            }]
+            }],
+            memory: []
         });
     });
 
@@ -93,7 +97,8 @@ describe('Buttons reducer tests', () => {
                 date: formatDate(),
                 equation: ["5", "+", "3"],
                 result: 8
-            }]
+            }],
+            memory: []
         });
     });
 
@@ -120,7 +125,8 @@ describe('Buttons reducer tests', () => {
                 date: formatDate(),
                 equation: ["5", "*", "3", "+", "2"],
                 result: 17
-            }]
+            }],
+            memory: []
         });
     });
 
@@ -135,7 +141,8 @@ describe('Buttons reducer tests', () => {
             equation: [],
             result: null,
             alreadyCalculated: false,
-            savedResults: []
+            savedResults: [],
+            memory: []
         });
 
         store.dispatch(digitAction);
@@ -144,7 +151,8 @@ describe('Buttons reducer tests', () => {
             equation: ["5"],
             result: null,
             alreadyCalculated: false,
-            savedResults: []
+            savedResults: [],
+            memory: []
         });
     });
 
@@ -160,7 +168,8 @@ describe('Buttons reducer tests', () => {
             equation: ["5"],
             result: null,
             alreadyCalculated: false,
-            savedResults: []
+            savedResults: [],
+            memory: []
         });
 
         store.dispatch(subtractionAction); // -
@@ -169,7 +178,8 @@ describe('Buttons reducer tests', () => {
             equation: ["5", "-"],
             result: null,
             alreadyCalculated: false,
-            savedResults: []
+            savedResults: [],
+            memory: []
         });
 
         store.dispatch(cleanLastAction); // <=
@@ -179,7 +189,8 @@ describe('Buttons reducer tests', () => {
             equation: [],
             result: null,
             alreadyCalculated: false,
-            savedResults: []
+            savedResults: [],
+            memory: []
         });
     });
 
@@ -199,7 +210,8 @@ describe('Buttons reducer tests', () => {
             equation: ["(", "5", "+", "2", ")"],
             result: null,
             alreadyCalculated: false,
-            savedResults: []
+            savedResults: [],
+            memory: []
         });
 
         store.dispatch(multiplicationAction);
@@ -209,7 +221,8 @@ describe('Buttons reducer tests', () => {
             equation: ["(", "5", "+", "2", ")", "*", "2"],
             result: null,
             alreadyCalculated: false,
-            savedResults: []
+            savedResults: [],
+            memory: []
         });
 
         store.dispatch(multiplicationAction);
@@ -221,7 +234,8 @@ describe('Buttons reducer tests', () => {
             equation: ["(", "5", "+", "2", ")", "*", "2", "/", "5"],
             result: null,
             alreadyCalculated: false,
-            savedResults: []
+            savedResults: [],
+            memory: []
         });
 
         store.dispatch(additionAction);
@@ -239,7 +253,8 @@ describe('Buttons reducer tests', () => {
             equation: ["(", "5", "+", "2", ")", "*", "2", "/", "5", "+", "(", "(", "(", "5", "+", "2", ")", ")", ")"],
             result: null,
             alreadyCalculated: false,
-            savedResults: []
+            savedResults: [],
+            memory: []
         });
 
         store.dispatch(resultAction);
@@ -252,7 +267,8 @@ describe('Buttons reducer tests', () => {
                 equation: ["(", "5", "+", "2", ")", "*", "2", "/", "5", "+", "(", "(", "(", "5", "+", "2", ")", ")", ")"],
                 date: formatDate(),
                 result: 9.8
-            }]
+            }],
+            memory: []
         });
     });
 
@@ -274,7 +290,8 @@ describe('Buttons reducer tests', () => {
                 equation: ["5", "+", "2"],
                 date: formatDate(),
                 result: 7
-            }]
+            }],
+            memory: []
         });
 
         store.dispatch(cleanAllAction);
@@ -287,7 +304,8 @@ describe('Buttons reducer tests', () => {
                 equation: ["5", "+", "2"],
                 date: formatDate(),
                 result: 7
-            }]
+            }],
+            memory: []
         });
 
         store.dispatch(digitAction);
@@ -302,7 +320,8 @@ describe('Buttons reducer tests', () => {
             savedResults: [
                 {equation: ["5", "+", "2"], date: formatDate(), result: 7},
                 {equation: ["5", "+", "2"], date: formatDate(), result: 7}
-            ]
+            ],
+            memory: []
         });
 
         store.dispatch(cleanAllAction);
@@ -314,7 +333,61 @@ describe('Buttons reducer tests', () => {
             savedResults: [
                 {equation: ["5", "+", "2"], date: formatDate(), result: 7},
                 {equation: ["5", "+", "2"], date: formatDate(), result: 7}
-            ]
+            ],
+            memory: []
+        });
+    });
+
+    it('Handling action: SELECT_MEMORY_BUTTON', () => {
+        const memoryAction = selectMemoryButton('M+');
+        const digitAction = selectDigitalButton("5");
+        const digitActionTwo = selectDigitalButton("2");
+        const digitActionThree = selectDigitalButton("3");
+        const cleanAllAction = selectCleanAllButton('AC');
+
+        store.dispatch(digitAction);
+        store.dispatch(additionAction);
+        store.dispatch(digitActionTwo);
+        store.dispatch(resultAction);
+        store.dispatch(memoryAction);
+
+        expect(store.getState().buttons).to.eql({
+            equation: [7],
+            result: 7,
+            alreadyCalculated: true,
+            savedResults: [
+                {equation: ["5", "+", "2"], date: formatDate(), result: 7},
+            ],
+            memory: [7]
+        });
+
+        store.dispatch(cleanAllAction);
+
+        expect(store.getState().buttons).to.eql({
+            equation: [],
+            result: null,
+            alreadyCalculated: false,
+            savedResults: [
+                {equation: ["5", "+", "2"], date: formatDate(), result: 7},
+            ],
+            memory: [7]
+        });
+
+        store.dispatch(digitAction);
+        store.dispatch(multiplicationAction);
+        store.dispatch(digitActionThree);
+        store.dispatch(resultAction);
+        store.dispatch(memoryAction);
+
+        expect(store.getState().buttons).to.eql({
+            equation: [15],
+            result: 15,
+            alreadyCalculated: true,
+            savedResults: [
+                {equation: ["5", "+", "2"], date: formatDate(), result: 7},
+                {equation: ["5", "*", "3"], date: formatDate(), result: 15},
+            ],
+            memory: [15]
         });
     });
 

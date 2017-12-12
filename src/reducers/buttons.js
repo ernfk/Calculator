@@ -2,7 +2,7 @@ import {
     SELECT_BRACKET_BUTTON,
     SELECT_CLEAN_ALL_BUTTON,
     SELECT_CLEAN_LAST_CHARACTER_BUTTON,
-    SELECT_DIGITAL_BUTTON,
+    SELECT_DIGITAL_BUTTON, SELECT_MEMORY_BUTTON,
     SELECT_OPERATION_BUTTON,
     SELECT_RESULT_BUTTON
 } from "../actions/types";
@@ -11,7 +11,8 @@ export const initialState = {
     equation: [],
     result: null,
     alreadyCalculated: false,
-    savedResults: []
+    savedResults: [],
+    memory: []
 };
 
 export const buttonsReducer = (state = initialState, action) => {
@@ -47,10 +48,16 @@ export const buttonsReducer = (state = initialState, action) => {
                 equation: checkIfLastElementIsResultOrEmpty(state.equation, state.alreadyCalculated, action.value),
                 alreadyCalculated: checkLastElement(state.equation, state.result)
             };
+        case SELECT_MEMORY_BUTTON:
+                return {
+                    ...state,
+                    memory: [state.result]
+                };
         default:
             return initialState;
     }
 };
+
 
 /**
  * Calculate equation from array elements.

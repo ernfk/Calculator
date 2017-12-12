@@ -178,7 +178,8 @@ describe('Tests for chaining equation. ', () => {
                     equation: ["9"],
                     date: formatDate(),
                     result: Number(digitPressed)
-                }]
+                }],
+                memory: []
             });
         });
 
@@ -214,7 +215,8 @@ describe('Tests for chaining equation. ', () => {
                     equation: ["9", "10"],
                     date: formatDate(),
                     result: 910
-                }]
+                }],
+                memory: []
             });
 
             store.dispatch(digitAction);
@@ -229,7 +231,8 @@ describe('Tests for chaining equation. ', () => {
                     equation: ["9", "10"],
                     date: formatDate(),
                     result: 910
-                }]
+                }],
+                memory: []
             });
         });
     });

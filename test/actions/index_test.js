@@ -5,7 +5,7 @@ import {
     selectBracketButton,
     selectCleanAllButton,
     selectCleanLastButton,
-    selectDigitalButton,
+    selectDigitalButton, selectMemoryButton,
     selectOperationButton,
     selectResultButton
 } from "../../src/actions/index";
@@ -13,7 +13,7 @@ import {
     SELECT_BRACKET_BUTTON,
     SELECT_CLEAN_ALL_BUTTON,
     SELECT_CLEAN_LAST_CHARACTER_BUTTON,
-    SELECT_DIGITAL_BUTTON,
+    SELECT_DIGITAL_BUTTON, SELECT_MEMORY_BUTTON,
     SELECT_OPERATION_BUTTON,
     SELECT_RESULT_BUTTON
 } from "../../src/actions/types";
@@ -93,5 +93,18 @@ describe('Actions tests', () => {
             const actionTwo = selectBracketButton(')');
             expect(actionTwo.value).to.equal(')')
         });
+    });
+
+    describe('Action: selectMemoryButton', () => {
+        it('Has the correct type', () => {
+            const action = selectMemoryButton();
+            expect(action.type).to.equal(SELECT_MEMORY_BUTTON);
+        });
+
+        it('Has the correct button value', () => {
+            const action = selectMemoryButton('M+');
+            expect(action.value).to.equal('M+');
+        });
+
     });
 });
