@@ -14,15 +14,20 @@ export class History extends Component {
                 HISTORY OF CALCULATIONS
                 {savedResults.map((eachResult, index) => {
                     return (
-                        <div className="history-result"
-                             key={index}
-                             style={{color: "rgba(0, 0, 0," + `${1 - index * 0.15}` + ")"}}
-                        >
-                            {index + 1 + ")  "}
-                            {eachResult.date}
-                            {" : "}
-                            {eachResult.result}
-                        </div> )
+                        <div>
+                            <div className="history-date"
+                                 key={index}
+                                 style={{color: "rgba(0, 0, 0," + `${1 - index * 0.15}` + ")"}}
+                            >
+                                {eachResult.date}
+                            </div>
+                            <div className="history-result"
+                                 style={{color: "rgba(211, 219, 72," + `${1 - index * 0.15}` + ")"}}
+                            >
+                                {eachResult.result}
+                            </div>
+                        </div>
+                    )
                 })}
             </div>
         );

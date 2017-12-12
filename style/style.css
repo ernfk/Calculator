@@ -189,8 +189,14 @@ input {
 }
 
 .history-result {
+    margin: 0 20px 0 20px;
+    font-size: 20px;
+    text-align: left;
+}
+
+.history-date {
     margin: 20px 0 0 20px;
     color: #000000;
-    font-size: 15px;
+    font-size: 12px;
     text-align: left;
 }
