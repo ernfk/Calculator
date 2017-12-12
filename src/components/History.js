@@ -21,9 +21,13 @@ export class History extends Component {
                             >
                                 {eachResult.date}
                             </div>
+
                             <div className="history-result"
                                  style={{color: "rgba(211, 219, 72," + `${1 - index * 0.15}` + ")"}}
                             >
+                                <span style={{color: "rgba(60, 102, 36," + `${1 - index * 0.15}` + ")"}}>
+                                    {eachResult.equation} {" = "}
+                                </span>
                                 {eachResult.result}
                             </div>
                         </div>

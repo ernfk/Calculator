@@ -175,6 +175,7 @@ describe('Tests for chaining equation. ', () => {
                 result: Number(digitPressed),
                 alreadyCalculated: true,
                 savedResults: [{
+                    equation: ["9"],
                     date: formatDate(),
                     result: Number(digitPressed)
                 }]
@@ -210,6 +211,7 @@ describe('Tests for chaining equation. ', () => {
                 result: 910,
                 alreadyCalculated: true,
                 savedResults: [{
+                    equation: ["9", "10"],
                     date: formatDate(),
                     result: 910
                 }]
@@ -224,6 +226,7 @@ describe('Tests for chaining equation. ', () => {
                 result: null,
                 alreadyCalculated: false,
                 savedResults: [{
+                    equation: ["9", "10"],
                     date: formatDate(),
                     result: 910
                 }]

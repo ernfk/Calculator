@@ -70,6 +70,7 @@ describe('Buttons reducer tests', () => {
             alreadyCalculated: true,
             savedResults: [{
                 date: formatDate(),
+                equation: [],
                 result: undefined
             }]
         });
@@ -90,6 +91,7 @@ describe('Buttons reducer tests', () => {
             alreadyCalculated: true,
             savedResults: [{
                 date: formatDate(),
+                equation: ["5", "+", "3"],
                 result: 8
             }]
         });
@@ -116,6 +118,7 @@ describe('Buttons reducer tests', () => {
             alreadyCalculated: true,
             savedResults: [{
                 date: formatDate(),
+                equation: ["5", "*", "3", "+", "2"],
                 result: 17
             }]
         });
@@ -246,6 +249,7 @@ describe('Buttons reducer tests', () => {
             result: 9.8,
             alreadyCalculated: true,
             savedResults: [{
+                equation: ["(", "5", "+", "2", ")", "*", "2", "/", "5", "+", "(", "(", "(", "5", "+", "2", ")", ")", ")"],
                 date: formatDate(),
                 result: 9.8
             }]
@@ -267,6 +271,7 @@ describe('Buttons reducer tests', () => {
             result: 7,
             alreadyCalculated: true,
             savedResults: [{
+                equation: ["5", "+", "2"],
                 date: formatDate(),
                 result: 7
             }]
@@ -279,6 +284,7 @@ describe('Buttons reducer tests', () => {
             result: null,
             alreadyCalculated: false,
             savedResults: [{
+                equation: ["5", "+", "2"],
                 date: formatDate(),
                 result: 7
             }]
@@ -289,14 +295,13 @@ describe('Buttons reducer tests', () => {
         store.dispatch(digitActionTwo);
         store.dispatch(resultAction);
 
-        console.log(store.getState().buttons);
         expect(store.getState().buttons).to.eql({
             equation: [7],
             result: 7,
             alreadyCalculated: true,
             savedResults: [
-                {date: formatDate(), result: 7},
-                {date: formatDate(), result: 7}
+                {equation: ["5", "+", "2"], date: formatDate(), result: 7},
+                {equation: ["5", "+", "2"], date: formatDate(), result: 7}
             ]
         });
 
@@ -307,8 +312,8 @@ describe('Buttons reducer tests', () => {
             result: null,
             alreadyCalculated: false,
             savedResults: [
-                {date: formatDate(), result: 7},
-                {date: formatDate(), result: 7}
+                {equation: ["5", "+", "2"], date: formatDate(), result: 7},
+                {equation: ["5", "+", "2"], date: formatDate(), result: 7}
             ]
         });
     });

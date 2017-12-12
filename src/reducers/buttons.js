@@ -138,7 +138,7 @@ export const getLastElement = (arrayToVerify) => {
 };
 
 export const getDateWithResult = (equation) => {
-    return {result: calculate(equation), date: formatDate()};
+    return {equation: equation, result: calculate(equation), date: formatDate()};
 };
 
 
