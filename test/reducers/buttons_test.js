@@ -6,7 +6,7 @@ import {
     selectBracketButton,
     selectCleanAllButton,
     selectCleanLastButton,
-    selectDigitalButton, selectMemoryButton,
+    selectDigitalButton, selectMemoryButton, selectMemoryCleanButton,
     selectOperationButton,
     selectResultButton
 } from "../../src/actions/index";
@@ -391,4 +391,59 @@ describe('Buttons reducer tests', () => {
         });
     });
 
+    it('Handling action: SELECT_MEMORY_CLEAN_BUTTON', () => {
+        const memoryAction = selectMemoryButton('M+');
+        const memoryCleanAction = selectMemoryCleanButton('MC');
+        const digitAction = selectDigitalButton("5");
+        const digitActionTwo = selectDigitalButton("2");
+        const digitActionThree = selectDigitalButton("3");
+        const cleanAllAction = selectCleanAllButton('AC');
+
+        store.dispatch(digitAction);
+        store.dispatch(additionAction);
+        store.dispatch(digitActionTwo);
+        store.dispatch(resultAction);
+        store.dispatch(memoryAction);
+
+        expect(store.getState().buttons).to.eql({
+            equation: [7],
+            result: 7,
+            alreadyCalculated: true,
+            savedResults: [
+                {equation: ["5", "+", "2"], date: formatDate(), result: 7},
+            ],
+            memory: [7]
+        });
+
+        store.dispatch(memoryCleanAction);
+
+        expect(store.getState().buttons).to.eql({
+            equation: [7],
+            result: 7,
+            alreadyCalculated: true,
+            savedResults: [
+                {equation: ["5", "+", "2"], date: formatDate(), result: 7},
+            ],
+            memory: []
+        });
+
+        store.dispatch(cleanAllAction);
+
+        store.dispatch(digitAction);
+        store.dispatch(multiplicationAction);
+        store.dispatch(digitActionThree);
+        store.dispatch(resultAction);
+        store.dispatch(memoryAction);
+
+        expect(store.getState().buttons).to.eql({
+            equation: [15],
+            result: 15,
+            alreadyCalculated: true,
+            savedResults: [
+                {equation: ["5", "+", "2"], date: formatDate(), result: 7},
+                {equation: ["5", "*", "3"], date: formatDate(), result: 15},
+            ],
+            memory: [15]
+        });
+    });
 });

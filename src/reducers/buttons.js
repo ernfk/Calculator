@@ -2,7 +2,7 @@ import {
     SELECT_BRACKET_BUTTON,
     SELECT_CLEAN_ALL_BUTTON,
     SELECT_CLEAN_LAST_CHARACTER_BUTTON,
-    SELECT_DIGITAL_BUTTON, SELECT_MEMORY_BUTTON,
+    SELECT_DIGITAL_BUTTON, SELECT_MEMORY_BUTTON, SELECT_MEMORY_CLEAN_BUTTON,
     SELECT_OPERATION_BUTTON,
     SELECT_RESULT_BUTTON
 } from "../actions/types";
@@ -52,6 +52,11 @@ export const buttonsReducer = (state = initialState, action) => {
                 return {
                     ...state,
                     memory: [state.result]
+                };
+        case SELECT_MEMORY_CLEAN_BUTTON:
+                return  {
+                    ...state,
+                    memory: []
                 };
         default:
             return initialState;

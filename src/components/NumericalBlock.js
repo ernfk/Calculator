@@ -16,7 +16,7 @@ export class NumericalBlock extends Component {
                                   key={4}
                 />
                 <SingleButtonsRow digitalButtonsPerRow={["7", "8", "9"]}
-                                  operationButtonsPerRow={["+"]}
+                                  operationButtonsPerRow={["+", "MC"]}
                                   rowKey={0}
                                   key={0}
                 />
