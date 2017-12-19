@@ -2,7 +2,7 @@ import {
     SELECT_BRACKET_BUTTON,
     SELECT_CLEAN_ALL_BUTTON,
     SELECT_CLEAN_LAST_CHARACTER_BUTTON,
-    SELECT_DIGITAL_BUTTON, SELECT_MEMORY_BUTTON, SELECT_MEMORY_CLEAN_BUTTON,
+    SELECT_DIGITAL_BUTTON, SELECT_MEMORY_BUTTON, SELECT_MEMORY_CLEAN_BUTTON, SELECT_MEMORY_READ_BUTTON,
     SELECT_OPERATION_BUTTON,
     SELECT_RESULT_BUTTON
 } from "./types";
@@ -59,6 +59,13 @@ export const selectMemoryButton = (buttonValue) => {
 export const selectMemoryCleanButton = (buttonValue) => {
   return {
       type: SELECT_MEMORY_CLEAN_BUTTON,
+      value: buttonValue
+  }
+};
+
+export const selectMemoryReadButton = (buttonValue) => {
+  return {
+      type: SELECT_MEMORY_READ_BUTTON,
       value: buttonValue
   }
 };

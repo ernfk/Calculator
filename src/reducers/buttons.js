@@ -1,8 +1,13 @@
+/**
+ * Calculate equation from array elements.
+ * @param equation
+ * @returns {*}
+ */
 import {
     SELECT_BRACKET_BUTTON,
     SELECT_CLEAN_ALL_BUTTON,
     SELECT_CLEAN_LAST_CHARACTER_BUTTON,
-    SELECT_DIGITAL_BUTTON, SELECT_MEMORY_BUTTON, SELECT_MEMORY_CLEAN_BUTTON,
+    SELECT_DIGITAL_BUTTON, SELECT_MEMORY_BUTTON, SELECT_MEMORY_CLEAN_BUTTON, SELECT_MEMORY_READ_BUTTON,
     SELECT_OPERATION_BUTTON,
     SELECT_RESULT_BUTTON
 } from "../actions/types";
@@ -49,26 +54,26 @@ export const buttonsReducer = (state = initialState, action) => {
                 alreadyCalculated: checkLastElement(state.equation, state.result)
             };
         case SELECT_MEMORY_BUTTON:
-                return {
-                    ...state,
-                    memory: [state.result]
-                };
+            return {
+                ...state,
+                memory: [state.result]
+            };
         case SELECT_MEMORY_CLEAN_BUTTON:
-                return  {
-                    ...state,
-                    memory: []
-                };
+            return {
+                ...state,
+                memory: []
+            };
+        case SELECT_MEMORY_READ_BUTTON:
+            return {
+                ...state,
+                equation: [...state.equation, isMemoryEmpty(state.memory[0])]
+            };
         default:
             return initialState;
     }
 };
 
 
-/**
- * Calculate equation from array elements.
- * @param equation
- * @returns {*}
- */
 export const calculate = (equation) => {
     let result;
     try {
@@ -170,4 +175,8 @@ export const formatDate = () => {
     seconds = seconds < 10 ? "0" + seconds : seconds;
 
     return year + "-" + month + "-" + day + " " + hour + ":" + minutes + ":" + seconds;
+};
+
+export const isMemoryEmpty = (memory) => {
+    return memory === undefined ? "" : memory;
 };

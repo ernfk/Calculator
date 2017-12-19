@@ -10,7 +10,16 @@ class OperationButton extends Component {
     }
 
     onClick(value) {
-        const {selectOperationButton, selectResultButton, selectCleanAllButton, selectCleanLastButton, selectBracketButton, selectMemoryButton, selectMemoryCleanButton} = this.props;
+        const {
+            selectOperationButton,
+            selectResultButton,
+            selectCleanAllButton,
+            selectCleanLastButton,
+            selectBracketButton,
+            selectMemoryButton,
+            selectMemoryCleanButton,
+            selectMemoryReadButton
+        } = this.props;
 
         switch (value) {
             case "AC":
@@ -33,6 +42,9 @@ class OperationButton extends Component {
                 break;
             case "MC":
                 selectMemoryCleanButton(value);
+                break;
+            case "MR":
+                selectMemoryReadButton(value);
                 break;
             default:
                 selectOperationButton(value)

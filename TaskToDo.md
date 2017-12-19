@@ -17,9 +17,7 @@ Improvements:
 
 Additional improvements for future:
 1. Add history of last calculations `Done: 11.12.2017`
-2. Add memorizing the result to use it next time (M+, MR, MC).
-- tests provided for M+
-- M+ works
+2. Add memorizing the result to use it next time (M+, MR, MC). `Done: 19.12.2017`
 3. Add modulo, square root, math power.
 
 Connect do DB 

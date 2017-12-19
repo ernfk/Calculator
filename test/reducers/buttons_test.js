@@ -6,7 +6,7 @@ import {
     selectBracketButton,
     selectCleanAllButton,
     selectCleanLastButton,
-    selectDigitalButton, selectMemoryButton, selectMemoryCleanButton,
+    selectDigitalButton, selectMemoryButton, selectMemoryCleanButton, selectMemoryReadButton,
     selectOperationButton,
     selectResultButton
 } from "../../src/actions/index";
@@ -444,6 +444,108 @@ describe('Buttons reducer tests', () => {
                 {equation: ["5", "*", "3"], date: formatDate(), result: 15},
             ],
             memory: [15]
+        });
+    });
+
+    it('Handling action: SELECT_MEMORY_READ_BUTTON', () => {
+        const memoryAction = selectMemoryButton('M+');
+        const memoryReadAction = selectMemoryReadButton('MR');
+        const memoryCleanAction = selectMemoryCleanButton('MC');
+        const digitAction = selectDigitalButton("5");
+        const digitActionTwo = selectDigitalButton("2");
+        const digitActionThree = selectDigitalButton("3");
+        const cleanAllAction = selectCleanAllButton('AC');
+
+        store.dispatch(digitAction);
+        store.dispatch(additionAction);
+        store.dispatch(digitActionTwo);
+        store.dispatch(resultAction);
+        store.dispatch(memoryAction);
+
+        expect(store.getState().buttons).to.eql({
+            equation: [7],
+            result: 7,
+            alreadyCalculated: true,
+            savedResults: [
+                {equation: ["5", "+", "2"], date: formatDate(), result: 7},
+            ],
+            memory: [7]
+        });
+
+        store.dispatch(additionAction);
+        store.dispatch(memoryReadAction);
+        store.dispatch(resultAction);
+
+        expect(store.getState().buttons).to.eql({
+            equation: [14],
+            result: 14,
+            alreadyCalculated: true,
+            savedResults: [
+                {equation: ["5", "+", "2"], date: formatDate(), result: 7},
+                {equation: [7, "+", 7], date: formatDate(), result: 14},
+            ],
+            memory: [7]
+        });
+
+        store.dispatch(memoryAction);
+
+        expect(store.getState().buttons).to.eql({
+            equation: [14],
+            result: 14,
+            alreadyCalculated: true,
+            savedResults: [
+                {equation: ["5", "+", "2"], date: formatDate(), result: 7},
+                {equation: [7, "+", 7], date: formatDate(), result: 14},
+            ],
+            memory: [14]
+        });
+
+        store.dispatch(multiplicationAction);
+        store.dispatch(digitActionThree);
+        store.dispatch(multiplicationAction);
+        store.dispatch(memoryReadAction);
+        store.dispatch(resultAction);
+
+        expect(store.getState().buttons).to.eql({
+            equation: [588],
+            result: 588,
+            alreadyCalculated: true,
+            savedResults: [
+                {equation: ["5", "+", "2"], date: formatDate(), result: 7},
+                {equation: [7, "+", 7], date: formatDate(), result: 14},
+                {equation: [14, "*", "3", "*", 14], date: formatDate(), result: 588},
+            ],
+            memory: [14]
+        });
+
+        store.dispatch(cleanAllAction);
+
+        expect(store.getState().buttons).to.eql({
+            equation: [],
+            result: null,
+            alreadyCalculated: false,
+            savedResults: [
+                {equation: ["5", "+", "2"], date: formatDate(), result: 7},
+                {equation: [7, "+", 7], date: formatDate(), result: 14},
+                {equation: [14, "*", "3", "*", 14], date: formatDate(), result: 588},
+            ],
+            memory: [14]
+        });
+
+        store.dispatch(memoryCleanAction);
+        store.dispatch(additionAction);
+        store.dispatch(memoryReadAction);
+
+        expect(store.getState().buttons).to.eql({
+            equation: ["+", ""],
+            result: null,
+            alreadyCalculated: false,
+            savedResults: [
+                {equation: ["5", "+", "2"], date: formatDate(), result: 7},
+                {equation: [7, "+", 7], date: formatDate(), result: 14},
+                {equation: [14, "*", "3", "*", 14], date: formatDate(), result: 588},
+            ],
+            memory: []
         });
     });
 });
