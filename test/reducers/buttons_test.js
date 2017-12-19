@@ -22,6 +22,15 @@ describe('Buttons reducer tests', () => {
     let multiplicationAction;
     let divisionAction;
     let resultAction;
+    let cleanAllAction;
+    let cleanLastAction;
+    let memoryAction;
+    let memoryReadAction;
+    let memoryCleanAction;
+
+    let digitAction;
+    let digitActionTwo;
+    let digitActionThree;
 
     beforeEach(() => {
         initialState = {
@@ -38,6 +47,15 @@ describe('Buttons reducer tests', () => {
         multiplicationAction = selectOperationButton("*");
         divisionAction = selectOperationButton("/");
         resultAction = selectResultButton("=");
+        cleanAllAction = selectCleanAllButton('AC');
+        cleanLastAction = selectCleanLastButton('C');
+        memoryAction = selectMemoryButton('M+');
+        memoryReadAction = selectMemoryReadButton('MR');
+        memoryCleanAction = selectMemoryCleanButton('MC');
+
+        digitAction = selectDigitalButton("5");
+        digitActionTwo = selectDigitalButton("2");
+        digitActionThree = selectDigitalButton("3");
     });
 
     it('Handling action with unknown type', () => {
@@ -46,8 +64,7 @@ describe('Buttons reducer tests', () => {
     });
 
     it('Handling action: SELECT_DIGITAL_BUTTON', () => {
-        const action = selectDigitalButton("5");
-        expect(buttonsReducer(initialState, action)).to.eql({
+        expect(buttonsReducer(initialState, digitAction)).to.eql({
             equation: ["5"],
             result: null,
             alreadyCalculated: false,
@@ -80,33 +97,26 @@ describe('Buttons reducer tests', () => {
         });
     });
 
-    it('Handling all actions: 5 + 3 = ,result should be: 8', () => {
-        const digitAction = selectDigitalButton("5");
-        const digitActionTwo = selectDigitalButton("3");
-
+    it('Handling all actions: 5 + 2 = ,result should be: 7', () => {
         store.dispatch(digitAction);
         store.dispatch(additionAction);
         store.dispatch(digitActionTwo);
         store.dispatch(resultAction);
 
         expect(store.getState().buttons).to.eql({
-            equation: [8],
-            result: 8,
+            equation: [7],
+            result: 7,
             alreadyCalculated: true,
             savedResults: [{
                 date: formatDate(),
-                equation: ["5", "+", "3"],
-                result: 8
+                equation: ["5", "+", "2"],
+                result: 7
             }],
             memory: []
         });
     });
 
-    it('Handling actions: 5 + - * 3 / + 2, should be: 17', () => {
-        const digitAction = selectDigitalButton("5");
-        const digitActionTwo = selectDigitalButton("3");
-        const digitActionThree = selectDigitalButton("2");
-
+    it('Handling actions: 5 + - * 2 / + 3, should be: 13', () => {
         store.dispatch(digitAction);
         store.dispatch(additionAction);
         store.dispatch(subtractionAction);
@@ -118,22 +128,19 @@ describe('Buttons reducer tests', () => {
         store.dispatch(resultAction);
 
         expect(store.getState().buttons).to.eql({
-            equation: [17],
-            result: 17,
+            equation: [13],
+            result: 13,
             alreadyCalculated: true,
             savedResults: [{
                 date: formatDate(),
-                equation: ["5", "*", "3", "+", "2"],
-                result: 17
+                equation: ["5", "*", "2", "+", "3"],
+                result: 13
             }],
             memory: []
         });
     });
 
     it('Handling action: SELECT_CLEAN_ALL_BUTTON', () => {
-        const cleanAllAction = selectCleanAllButton('AC');
-        const digitAction = selectDigitalButton("5");
-
         store.dispatch(digitAction);
         store.dispatch(cleanAllAction);
 
@@ -157,9 +164,6 @@ describe('Buttons reducer tests', () => {
     });
 
     it('Handling action: SELECT_CLEAN_LAST_CHARACTER_BUTTON', () => {
-        const cleanLastAction = selectCleanLastButton('C');
-        const digitAction = selectDigitalButton("5");
-
         store.dispatch(digitAction); // 5
         store.dispatch(additionAction); // +
         store.dispatch(cleanLastAction); // <=
@@ -196,8 +200,6 @@ describe('Buttons reducer tests', () => {
 
     it('Handling action: SELECT_BRACKET_BUTTON', () => {
         const bracketAction = selectBracketButton("(");
-        const digitAction = selectDigitalButton("5");
-        const digitActionTwo = selectDigitalButton("2");
         const bracketActionTwo = selectBracketButton(")");
 
         store.dispatch(bracketAction);
@@ -273,10 +275,6 @@ describe('Buttons reducer tests', () => {
     });
 
     it('Saves result to savesResults after couple of calculation', () => {
-        const cleanAllAction = selectCleanAllButton('AC');
-        const digitAction = selectDigitalButton("5");
-        const digitActionTwo = selectDigitalButton("2");
-
         store.dispatch(digitAction);
         store.dispatch(additionAction);
         store.dispatch(digitActionTwo);
@@ -339,12 +337,6 @@ describe('Buttons reducer tests', () => {
     });
 
     it('Handling action: SELECT_MEMORY_BUTTON', () => {
-        const memoryAction = selectMemoryButton('M+');
-        const digitAction = selectDigitalButton("5");
-        const digitActionTwo = selectDigitalButton("2");
-        const digitActionThree = selectDigitalButton("3");
-        const cleanAllAction = selectCleanAllButton('AC');
-
         store.dispatch(digitAction);
         store.dispatch(additionAction);
         store.dispatch(digitActionTwo);
@@ -392,13 +384,6 @@ describe('Buttons reducer tests', () => {
     });
 
     it('Handling action: SELECT_MEMORY_CLEAN_BUTTON', () => {
-        const memoryAction = selectMemoryButton('M+');
-        const memoryCleanAction = selectMemoryCleanButton('MC');
-        const digitAction = selectDigitalButton("5");
-        const digitActionTwo = selectDigitalButton("2");
-        const digitActionThree = selectDigitalButton("3");
-        const cleanAllAction = selectCleanAllButton('AC');
-
         store.dispatch(digitAction);
         store.dispatch(additionAction);
         store.dispatch(digitActionTwo);
@@ -448,14 +433,6 @@ describe('Buttons reducer tests', () => {
     });
 
     it('Handling action: SELECT_MEMORY_READ_BUTTON', () => {
-        const memoryAction = selectMemoryButton('M+');
-        const memoryReadAction = selectMemoryReadButton('MR');
-        const memoryCleanAction = selectMemoryCleanButton('MC');
-        const digitAction = selectDigitalButton("5");
-        const digitActionTwo = selectDigitalButton("2");
-        const digitActionThree = selectDigitalButton("3");
-        const cleanAllAction = selectCleanAllButton('AC');
-
         store.dispatch(digitAction);
         store.dispatch(additionAction);
         store.dispatch(digitActionTwo);
