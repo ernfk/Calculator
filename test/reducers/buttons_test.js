@@ -6,7 +6,7 @@ import {
     selectBracketButton,
     selectCleanAllButton,
     selectCleanLastButton,
-    selectDigitalButton, selectMemoryButton, selectMemoryCleanButton, selectMemoryReadButton,
+    selectDigitalButton, selectMathPowerButton, selectMemoryButton, selectMemoryCleanButton, selectMemoryReadButton,
     selectOperationButton,
     selectResultButton
 } from "../../src/actions/index";
@@ -28,7 +28,7 @@ describe('Buttons reducer tests', () => {
     let memoryReadAction;
     let memoryCleanAction;
 
-    let digitAction;
+    let digitActionFive;
     let digitActionTwo;
     let digitActionThree;
 
@@ -53,7 +53,7 @@ describe('Buttons reducer tests', () => {
         memoryReadAction = selectMemoryReadButton('MR');
         memoryCleanAction = selectMemoryCleanButton('MC');
 
-        digitAction = selectDigitalButton("5");
+        digitActionFive = selectDigitalButton("5");
         digitActionTwo = selectDigitalButton("2");
         digitActionThree = selectDigitalButton("3");
     });
@@ -64,7 +64,7 @@ describe('Buttons reducer tests', () => {
     });
 
     it('Handling action: SELECT_DIGITAL_BUTTON', () => {
-        expect(buttonsReducer(initialState, digitAction)).to.eql({
+        expect(buttonsReducer(initialState, digitActionFive)).to.eql({
             equation: ["5"],
             result: null,
             alreadyCalculated: false,
@@ -98,7 +98,7 @@ describe('Buttons reducer tests', () => {
     });
 
     it('Handling all actions: 5 + 2 = ,result should be: 7', () => {
-        store.dispatch(digitAction);
+        store.dispatch(digitActionFive);
         store.dispatch(additionAction);
         store.dispatch(digitActionTwo);
         store.dispatch(resultAction);
@@ -117,7 +117,7 @@ describe('Buttons reducer tests', () => {
     });
 
     it('Handling actions: 5 + - * 2 / + 3, should be: 13', () => {
-        store.dispatch(digitAction);
+        store.dispatch(digitActionFive);
         store.dispatch(additionAction);
         store.dispatch(subtractionAction);
         store.dispatch(multiplicationAction);
@@ -141,7 +141,7 @@ describe('Buttons reducer tests', () => {
     });
 
     it('Handling action: SELECT_CLEAN_ALL_BUTTON', () => {
-        store.dispatch(digitAction);
+        store.dispatch(digitActionFive);
         store.dispatch(cleanAllAction);
 
         expect(store.getState().buttons).to.eql({
@@ -152,7 +152,7 @@ describe('Buttons reducer tests', () => {
             memory: []
         });
 
-        store.dispatch(digitAction);
+        store.dispatch(digitActionFive);
 
         expect(store.getState().buttons).to.eql({
             equation: ["5"],
@@ -164,7 +164,7 @@ describe('Buttons reducer tests', () => {
     });
 
     it('Handling action: SELECT_CLEAN_LAST_CHARACTER_BUTTON', () => {
-        store.dispatch(digitAction); // 5
+        store.dispatch(digitActionFive); // 5
         store.dispatch(additionAction); // +
         store.dispatch(cleanLastAction); // <=
 
@@ -203,7 +203,7 @@ describe('Buttons reducer tests', () => {
         const bracketActionTwo = selectBracketButton(")");
 
         store.dispatch(bracketAction);
-        store.dispatch(digitAction);
+        store.dispatch(digitActionFive);
         store.dispatch(additionAction);
         store.dispatch(digitActionTwo);
         store.dispatch(bracketActionTwo);
@@ -230,7 +230,7 @@ describe('Buttons reducer tests', () => {
         store.dispatch(multiplicationAction);
 
         store.dispatch(divisionAction);
-        store.dispatch(digitAction);
+        store.dispatch(digitActionFive);
 
         expect(store.getState().buttons).to.eql({
             equation: ["(", "5", "+", "2", ")", "*", "2", "/", "5"],
@@ -244,7 +244,7 @@ describe('Buttons reducer tests', () => {
         store.dispatch(bracketAction);
         store.dispatch(bracketAction);
         store.dispatch(bracketAction);
-        store.dispatch(digitAction);
+        store.dispatch(digitActionFive);
         store.dispatch(additionAction);
         store.dispatch(digitActionTwo);
         store.dispatch(bracketActionTwo);
@@ -275,7 +275,7 @@ describe('Buttons reducer tests', () => {
     });
 
     it('Saves result to savesResults after couple of calculation', () => {
-        store.dispatch(digitAction);
+        store.dispatch(digitActionFive);
         store.dispatch(additionAction);
         store.dispatch(digitActionTwo);
         store.dispatch(resultAction);
@@ -306,7 +306,7 @@ describe('Buttons reducer tests', () => {
             memory: []
         });
 
-        store.dispatch(digitAction);
+        store.dispatch(digitActionFive);
         store.dispatch(additionAction);
         store.dispatch(digitActionTwo);
         store.dispatch(resultAction);
@@ -337,7 +337,7 @@ describe('Buttons reducer tests', () => {
     });
 
     it('Handling action: SELECT_MEMORY_BUTTON', () => {
-        store.dispatch(digitAction);
+        store.dispatch(digitActionFive);
         store.dispatch(additionAction);
         store.dispatch(digitActionTwo);
         store.dispatch(resultAction);
@@ -365,7 +365,7 @@ describe('Buttons reducer tests', () => {
             memory: [7]
         });
 
-        store.dispatch(digitAction);
+        store.dispatch(digitActionFive);
         store.dispatch(multiplicationAction);
         store.dispatch(digitActionThree);
         store.dispatch(resultAction);
@@ -384,7 +384,7 @@ describe('Buttons reducer tests', () => {
     });
 
     it('Handling action: SELECT_MEMORY_CLEAN_BUTTON', () => {
-        store.dispatch(digitAction);
+        store.dispatch(digitActionFive);
         store.dispatch(additionAction);
         store.dispatch(digitActionTwo);
         store.dispatch(resultAction);
@@ -414,7 +414,7 @@ describe('Buttons reducer tests', () => {
 
         store.dispatch(cleanAllAction);
 
-        store.dispatch(digitAction);
+        store.dispatch(digitActionFive);
         store.dispatch(multiplicationAction);
         store.dispatch(digitActionThree);
         store.dispatch(resultAction);
@@ -433,7 +433,7 @@ describe('Buttons reducer tests', () => {
     });
 
     it('Handling action: SELECT_MEMORY_READ_BUTTON', () => {
-        store.dispatch(digitAction);
+        store.dispatch(digitActionFive);
         store.dispatch(additionAction);
         store.dispatch(digitActionTwo);
         store.dispatch(resultAction);
@@ -521,6 +521,73 @@ describe('Buttons reducer tests', () => {
                 {equation: ["5", "+", "2"], date: formatDate(), result: 7},
                 {equation: [7, "+", 7], date: formatDate(), result: 14},
                 {equation: [14, "*", "3", "*", 14], date: formatDate(), result: 588},
+            ],
+            memory: []
+        });
+    });
+
+    it('Handling action: SELECT_MATH_POWER_BUTTON', () => {
+        store.dispatch(digitActionFive);
+        store.dispatch(selectMathPowerButton('sqr'));
+
+        expect(store.getState().buttons).to.eql({
+            equation: [25],
+            result: null,
+            alreadyCalculated: false,
+            savedResults: [],
+            memory: []
+        });
+
+        store.dispatch(additionAction);
+        store.dispatch(digitActionTwo);
+        store.dispatch(resultAction);
+
+        expect(store.getState().buttons).to.eql({
+            equation: [27],
+            result: 27,
+            alreadyCalculated: true,
+            savedResults: [
+                {equation: [25, "+", "2"], date: formatDate(), result: 27},
+            ],
+            memory: []
+        });
+
+        store.dispatch(additionAction);
+        store.dispatch(selectMathPowerButton('sqr'));
+
+        expect(store.getState().buttons).to.eql({
+            equation: [27, ""],
+            result: 27,
+            alreadyCalculated: false,
+            savedResults: [
+                {equation: [25, "+", "2"], date: formatDate(), result: 27},
+            ],
+            memory: []
+        });
+
+        store.dispatch(additionAction);
+        store.dispatch(digitActionTwo);
+        store.dispatch(selectMathPowerButton('sqr'));
+
+        expect(store.getState().buttons).to.eql({
+            equation: [27, "", "+", 4],
+            result: 27,
+            alreadyCalculated: false,
+            savedResults: [
+                {equation: [25, "+", "2"], date: formatDate(), result: 27},
+            ],
+            memory: []
+        });
+
+        store.dispatch(resultAction);
+
+        expect(store.getState().buttons).to.eql({
+            equation: [31],
+            result: 31,
+            alreadyCalculated: true,
+            savedResults: [
+                {equation: [25, "+", "2"], date: formatDate(), result: 27},
+                {equation: [27, "", "+", 4], date: formatDate(), result: 31},
             ],
             memory: []
         });

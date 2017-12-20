@@ -4,7 +4,7 @@ import {beforeEach, describe, it} from "mocha/lib/mocha";
 import {isElementInArray, prepareEquationToShow, validatePressedKey} from "../src/components/Screen";
 import {
     buttonsReducer, calculate, deleteLastElement, getLastElement,
-    verifyOperationSings, formatDate
+    verifyOperationSings, formatDate, mathPowerLastInput
 } from "../src/reducers/buttons";
 import {rootReducer} from "../src/reducers/index";
 import {createStore} from "redux";
@@ -249,6 +249,18 @@ describe('Tests for chaining equation. ', () => {
             let arr = [1, "dog", 2, "3", "cat"];
             expect(isElementInArray(arr, "cat")).to.be.true;
             expect(isElementInArray(arr, "mouse")).to.be.false;
+        });
+    });
+
+    describe('Check last element and if it is the digit, return square of it', () => {
+        it('mathPowerLastInput() where last input element is 5', () => {
+            let squareNumber = mathPowerLastInput("5");
+            expect(squareNumber).to.equal(25);
+        });
+
+        it('mathPowerLastInput() where last input element is not a digit, should return ""', () => {
+            let squareNumber = mathPowerLastInput("+");
+            expect(squareNumber).to.equal("");
         });
     });
 });

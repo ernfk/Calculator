@@ -18,7 +18,8 @@ class OperationButton extends Component {
             selectBracketButton,
             selectMemoryButton,
             selectMemoryCleanButton,
-            selectMemoryReadButton
+            selectMemoryReadButton,
+            selectMathPowerButton
         } = this.props;
 
         switch (value) {
@@ -45,6 +46,9 @@ class OperationButton extends Component {
                 break;
             case "MR":
                 selectMemoryReadButton(value);
+                break;
+            case "sqr":
+                selectMathPowerButton(value);
                 break;
             default:
                 selectOperationButton(value)

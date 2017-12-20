@@ -7,7 +7,8 @@ import {
     SELECT_BRACKET_BUTTON,
     SELECT_CLEAN_ALL_BUTTON,
     SELECT_CLEAN_LAST_CHARACTER_BUTTON,
-    SELECT_DIGITAL_BUTTON, SELECT_MEMORY_BUTTON, SELECT_MEMORY_CLEAN_BUTTON, SELECT_MEMORY_READ_BUTTON,
+    SELECT_DIGITAL_BUTTON, SELECT_MATH_POWER_BUTTON, SELECT_MEMORY_BUTTON, SELECT_MEMORY_CLEAN_BUTTON,
+    SELECT_MEMORY_READ_BUTTON,
     SELECT_OPERATION_BUTTON,
     SELECT_RESULT_BUTTON
 } from "../actions/types";
@@ -67,6 +68,11 @@ export const buttonsReducer = (state = initialState, action) => {
             return {
                 ...state,
                 equation: [...state.equation, isMemoryEmpty(state.memory[0])]
+            };
+        case SELECT_MATH_POWER_BUTTON:
+            return {
+                ...state,
+                equation: [...deleteLastElement(state.equation), mathPowerLastInput(state.equation.pop())]
             };
         default:
             return initialState;
@@ -179,4 +185,14 @@ export const formatDate = () => {
 
 export const isMemoryEmpty = (memory) => {
     return memory === undefined ? "" : memory;
+};
+
+/**
+ * Due to input return square of digit or empty string.
+ * @param lastInput
+ * @returns {*}
+ */
+export const mathPowerLastInput = (lastInput) => {
+    console.log(lastInput);
+    return isNaN(lastInput) ? "" : Math.pow(lastInput, 2);
 };
