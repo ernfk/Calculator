@@ -95,7 +95,7 @@ input {
     border-color: #00ff00;
 }
 
-.operation-button, .operation-button-ac, .operation-button-c {
+.operation-button, .operation-button-ac, .operation-button-c, .math-power-button {
     width: 50px;
     height: 50px;
     border: 2px #ff8c1a solid;
@@ -107,7 +107,7 @@ input {
     background-color: #1c3141;
 }
 
-.operation-button:hover, .operation-button-c:hover {
+.operation-button:hover, .operation-button-c:hover, .math-power-button:hover {
     background-color: #28465d;
     font-size: 20px;
     border-color: #00ff00;
@@ -140,6 +140,21 @@ input {
 
 .operation-button-c:hover {
     background-image: url("delete26x26.png");
+}
+
+/* MATH POWER BUTTON #SQR */
+.math-power-button {
+    color: #000000;
+    background-image: url("mathPower24x24.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    border: 2px #ff8c1a solid;
+    text-indent: -9999px;
+    overflow: hidden;
+}
+
+.math-power-button:hover {
+    background-image: url("mathPower26x26x.png");
 }
 
 .button-value {

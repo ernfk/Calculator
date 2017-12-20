@@ -65,6 +65,9 @@ class OperationButton extends Component {
             case "C":
                 operationButtonStyle = "operation-button-c";
                 break;
+            case "sqr":
+                operationButtonStyle = "math-power-button";
+                break;
             default:
                 operationButtonStyle = "operation-button";
                 break;
