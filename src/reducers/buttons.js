@@ -72,6 +72,7 @@ export const buttonsReducer = (state = initialState, action) => {
         case SELECT_MATH_POWER_BUTTON:
             return {
                 ...state,
+                result: mathPowerIfAlreadyCalculated(state.result, state.alreadyCalculated),
                 equation: [...deleteLastElement(state.equation), mathPowerLastInput(state.equation.pop())]
             };
         default:
@@ -193,6 +194,9 @@ export const isMemoryEmpty = (memory) => {
  * @returns {*}
  */
 export const mathPowerLastInput = (lastInput) => {
-    console.log(lastInput);
     return isNaN(lastInput) ? "" : Math.pow(lastInput, 2);
+};
+
+export const mathPowerIfAlreadyCalculated = (result, isAlreadyCalculated) => {
+    return isAlreadyCalculated ? Math.pow(result, 2) : result;
 };
