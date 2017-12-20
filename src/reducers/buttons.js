@@ -203,7 +203,7 @@ export const mathPowerLastInput = (equation) => {
 
     if (isNaN(equation[equation.length - 1]) && equation.length > 1) return equation;
 
-    let reversedEquation = equation.reverse();
+    let reversedEquation = equation.slice().reverse();
     let indexOfLastOperationSign = reversedEquation.findIndex(element => isNaN(element));
 
     if (indexOfLastOperationSign !== -1) {
@@ -211,7 +211,7 @@ export const mathPowerLastInput = (equation) => {
         return reversedEquation.slice(indexOfLastOperationSign).reverse().concat(numberToSquare);
     }
 
-    return [Math.pow(equation[0], 2)];
+    return [Math.pow(equation.join(''), 2)];
 };
 
 export const mathPowerIfAlreadyCalculated = (result, isAlreadyCalculated) => {

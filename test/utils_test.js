@@ -268,5 +268,11 @@ describe('Tests for chaining equation. ', () => {
             let newArr = mathPowerLastInput(equation);
             expect(newArr).to.eql(["5", "+", 144]);
         });
+
+        it('mathPowerLastInput() where: ["1", "2"] => [144]', () => {
+            let equation = ["1", "2"];
+            let newArr = mathPowerLastInput(equation);
+            expect(newArr).to.eql([144]);
+        });
     });
 });
