@@ -73,7 +73,7 @@ export const buttonsReducer = (state = initialState, action) => {
             return {
                 ...state,
                 result: mathPowerIfAlreadyCalculated(state.result, state.alreadyCalculated),
-                equation: [...deleteLastElement(state.equation), mathPowerLastInput(state.equation.pop())]
+                equation: mathPowerLastInput(state.equation)
             };
         default:
             return initialState;
@@ -189,12 +189,29 @@ export const isMemoryEmpty = (memory) => {
 };
 
 /**
- * Due to input return square of digit or empty string.
- * @param lastInput
+ * Checks and return changed equation.
+ * 1) If last input element is not a number and the equation contains 1 element, it return this element e.g: ["+"] return the same
+ * 2) If last input element is not a number and the equation contains more than 1 element, it returns equation.
+ * 3) If last input element is a number it checks the last input and combine digits into number to make a square of it
+ * e.g. ["5", "+", "1", "2"] => ["5, "+", 144];
+ * 4) Other case e.g. ["5"] return [25]
+ * @param equation
  * @returns {*}
  */
-export const mathPowerLastInput = (lastInput) => {
-    return isNaN(lastInput) ? "" : Math.pow(lastInput, 2);
+export const mathPowerLastInput = (equation) => {
+    if (isNaN(equation[equation.length - 1]) && equation.length === 1) return equation[equation.length - 1];
+
+    if (isNaN(equation[equation.length - 1]) && equation.length > 1) return equation;
+
+    let reversedEquation = equation.reverse();
+    let indexOfLastOperationSign = reversedEquation.findIndex(element => isNaN(element));
+
+    if (indexOfLastOperationSign !== -1) {
+        let numberToSquare = Math.pow(Number(reversedEquation.slice(0, indexOfLastOperationSign).reverse().join('')), 2);
+        return reversedEquation.slice(indexOfLastOperationSign).reverse().concat(numberToSquare);
+    }
+
+    return [Math.pow(equation[0], 2)];
 };
 
 export const mathPowerIfAlreadyCalculated = (result, isAlreadyCalculated) => {

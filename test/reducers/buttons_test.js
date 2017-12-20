@@ -556,7 +556,7 @@ describe('Buttons reducer tests', () => {
         store.dispatch(selectMathPowerButton('sqr'));
 
         expect(store.getState().buttons).to.eql({
-            equation: [27, ""],
+            equation: [27, "+"],
             result: 27,
             alreadyCalculated: false,
             savedResults: [
@@ -570,7 +570,7 @@ describe('Buttons reducer tests', () => {
         store.dispatch(selectMathPowerButton('sqr'));
 
         expect(store.getState().buttons).to.eql({
-            equation: [27, "", "+", 4],
+            equation: [27, "+", 4],
             result: 27,
             alreadyCalculated: false,
             savedResults: [
@@ -587,7 +587,37 @@ describe('Buttons reducer tests', () => {
             alreadyCalculated: true,
             savedResults: [
                 {equation: [25, "+", "2"], date: formatDate(), result: 27},
-                {equation: [27, "", "+", 4], date: formatDate(), result: 31},
+                {equation: [27, "+", 4], date: formatDate(), result: 31},
+            ],
+            memory: []
+        });
+
+        store.dispatch(additionAction);
+        store.dispatch(digitActionTwo);
+        store.dispatch(digitActionThree);
+        store.dispatch(selectMathPowerButton('sqr'));
+
+        expect(store.getState().buttons).to.eql({
+            equation: [31, "+", 529],
+            result: 31,
+            alreadyCalculated: false,
+            savedResults: [
+                {equation: [25, "+", "2"], date: formatDate(), result: 27},
+                {equation: [27, "+", 4], date: formatDate(), result: 31},
+            ],
+            memory: []
+        });
+
+        store.dispatch(resultAction);
+
+        expect(store.getState().buttons).to.eql({
+            equation: [560],
+            result: 560,
+            alreadyCalculated: true,
+            savedResults: [
+                {equation: [25, "+", "2"], date: formatDate(), result: 27},
+                {equation: [27, "+", 4], date: formatDate(), result: 31},
+                {equation: [31, "+", 529], date: formatDate(), result: 560},
             ],
             memory: []
         });

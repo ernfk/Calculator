@@ -254,13 +254,19 @@ describe('Tests for chaining equation. ', () => {
 
     describe('Check last element and if it is the digit, return square of it', () => {
         it('mathPowerLastInput() where last input element is 5', () => {
-            let squareNumber = mathPowerLastInput("5");
-            expect(squareNumber).to.equal(25);
+            let squareNumber = mathPowerLastInput(["5"]);
+            expect(squareNumber).to.eql([25]);
         });
 
         it('mathPowerLastInput() where last input element is not a digit, should return ""', () => {
-            let squareNumber = mathPowerLastInput("+");
-            expect(squareNumber).to.equal("");
+            let squareNumber = mathPowerLastInput(["+"]);
+            expect(squareNumber).to.equal("+");
+        });
+
+        it('mathPowerLastInput() where: ["5", "+", "1", "2"] => ["5", "+", 144]', () => {
+            let equation = ["5", "+", "1", "2"];
+            let newArr = mathPowerLastInput(equation);
+            expect(newArr).to.eql(["5", "+", 144]);
         });
     });
 });
