@@ -190,15 +190,25 @@ export const isMemoryEmpty = (memory) => {
 
 /**
  * Checks and return changed equation.
- * 1) If last input element is not a number and the equation contains 1 element, it return this element e.g: ["+"] return the same
- * 2) If last input element is not a number and the equation contains more than 1 element, it returns equation.
- * 3) If last input element is a number it checks the last input and combine digits into number to make a square of it
+ * 1) If last input is bracket there must be first isolated calculation between brackets.
+ * 2) If last input element is not a number and the equation contains 1 element, it return this element e.g: ["+"] return the same
+ * 3) If last input element is not a number and the equation contains more than 1 element, it returns equation.
+ * 4) If last input element is a number it checks the last input and combine digits into number to make a square of it
  * e.g. ["5", "+", "1", "2"] => ["5, "+", 144];
- * 4) Other case e.g. ["5"] return [25]
+ * 5) Other case e.g. ["5"] return [25]
  * @param equation
  * @returns {*}
  */
 export const mathPowerLastInput = (equation) => {
+    if (equation[equation.length - 1] === ")" && equation.length > 1) {
+        let reversedEquation = equation.slice().reverse();
+        let indexOfLastLeftBracket = reversedEquation.findIndex(element => element === "(");
+        let restOfArrayToConcat = reversedEquation.slice().splice(indexOfLastLeftBracket+1, reversedEquation.length).reverse();
+        let calculationToSquare = reversedEquation.slice().splice(1, indexOfLastLeftBracket - 1).reverse();
+        let squaredValue = Math.pow(calculate(calculationToSquare), 2);
+        return restOfArrayToConcat.concat(squaredValue);
+    }
+
     if (isNaN(equation[equation.length - 1]) && equation.length === 1) return equation[equation.length - 1];
 
     if (isNaN(equation[equation.length - 1]) && equation.length > 1) return equation;

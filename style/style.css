@@ -87,6 +87,7 @@ input {
     justify-content: center;
     cursor: pointer;
     background-color: #1c3141;
+    font-size: 18px;
 }
 
 .digital-button:hover {
@@ -105,6 +106,7 @@ input {
     justify-content: center;
     cursor: pointer;
     background-color: #1c3141;
+    font-size: 18px;
 }
 
 .operation-button:hover, .operation-button-c:hover, .math-power-button:hover {

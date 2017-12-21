@@ -21,6 +21,7 @@ Additional improvements for future:
 3. Add modulo, square root, math power.
 - BUG: math pow after resulting should render squared value `Done: 20.12.2017`
 - BUG: math pow takes last digit not a number (63 sqr => 69 should be 3969) `Done: 20.12.2017`
+- BUG: math pow on calculation inside brackets: (1+2) => 9 `Done: 21.12.2017`
 
 Connect do DB 
 1. Save calculations (history)
