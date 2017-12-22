@@ -280,11 +280,17 @@ describe('Tests for chaining equation. ', () => {
             let newArr = mathPowerLastInput(equation, 2);
             expect(newArr).to.eql(["1", "+", 9]);
         });
+
+        it('mathPowerListInput() where number is negative', () => {
+            let equation = ["-5"];
+            let newArr = mathPowerLastInput(equation, 2);
+            expect(newArr).to.eql([25]);
+        });
     });
 
     describe('Extraction of a root operations', () => {
         it('mathPowerLastInput() where last input element is digit', () => {
-            let equation = ["25"];
+            let equation = ["2", "5"];
             let result = mathPowerLastInput(equation, 0.5);
             expect(result).to.eql([5]);
         });
@@ -305,6 +311,18 @@ describe('Tests for chaining equation. ', () => {
             let equation = ["1", "+", "(", "2", "+", "7", ")"];
             let newArr = mathPowerLastInput(equation, 0.5);
             expect(newArr).to.eql(["1", "+", 3]);
+        });
+
+        it('mathPowerListInput() where number is negative', () => {
+            let equation = ["-2","5"];
+            let newArr = mathPowerLastInput(equation, 0.5);
+            expect(newArr).to.eql(['CAN NOT EXTRACT ROOT FROM NEGATIVE NUMBER']);
+        });
+
+        it('mathPowerListInput() where number is negative from calculation', () => {
+            let equation = ["1", "+", "(", "2", "*", "8", "-", "17", ")"];
+            let newArr = mathPowerLastInput(equation, 0.5);
+            expect(newArr).to.eql(['CAN NOT EXTRACT ROOT FROM NEGATIVE NUMBER']);
         });
     });
 });

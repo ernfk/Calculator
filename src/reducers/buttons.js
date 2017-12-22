@@ -78,7 +78,7 @@ export const buttonsReducer = (state = initialState, action) => {
         case SELECT_ROOT_BUTTON:
             return {
                 ...state,
-                result: mathPowerIfAlreadyCalculated(state.result, state.alreadyCalculated, 0.5),
+                result: rootIfAlreadyCalculated(state.result, state.alreadyCalculated),
                 equation: mathPowerLastInput(state.equation, 0.5)
             };
         default:
@@ -194,25 +194,27 @@ export const isMemoryEmpty = (memory) => {
     return memory === undefined ? "" : memory;
 };
 
-/**
- * Checks and return changed equation.
- * 1) If last input is bracket there must be first isolated calculation between brackets.
- * 2) If last input element is not a number and the equation contains 1 element, it return this element e.g: ["+"] return the same
- * 3) If last input element is not a number and the equation contains more than 1 element, it returns equation.
- * 4) If last input element is a number it checks the last input and combine digits into number to make a square of it
- * e.g. ["5", "+", "1", "2"] => ["5, "+", 144];
- * 5) Other case e.g. ["5"] return [25]
- * @param equation
- * @returns {*}
- */
+
 export const mathPowerLastInput = (equation, index) => {
+    if (index === 0.5 && equation.length > 1) {
+        if (Number(equation.join('')) < 0) return ['CAN NOT EXTRACT ROOT FROM NEGATIVE NUMBER'];
+    } else if (index === 2 && equation.length > 1) {
+        if (Number(equation.join('')) < 0) return [Math.pow(Number(equation.join('')), index)];
+    }
+
     if (equation[equation.length - 1] === ")" && equation.length > 1) {
         let reversedEquation = equation.slice().reverse();
         let indexOfLastLeftBracket = reversedEquation.findIndex(element => element === "(");
         let restOfArrayToConcat = reversedEquation.slice().splice(indexOfLastLeftBracket + 1, reversedEquation.length).reverse();
-        let calculationToSquare = reversedEquation.slice().splice(1, indexOfLastLeftBracket - 1).reverse();
-        let squaredValue = Math.pow(calculate(calculationToSquare), index);
-        return restOfArrayToConcat.concat(squaredValue);
+        let calculationToSquareOrRoot = reversedEquation.slice().splice(1, indexOfLastLeftBracket - 1).reverse();
+
+        let valueToSquareRoot = calculate(calculationToSquareOrRoot);
+        if (index === 0.5 && valueToSquareRoot < 0) {
+            return ['CAN NOT EXTRACT ROOT FROM NEGATIVE NUMBER'];
+        }
+
+        let squaredOrRootValue = Math.pow(valueToSquareRoot, index);
+        return restOfArrayToConcat.concat(squaredOrRootValue);
     }
 
     if (isNaN(equation[equation.length - 1]) && equation.length === 1) return equation[equation.length - 1];
@@ -223,8 +225,14 @@ export const mathPowerLastInput = (equation, index) => {
     let indexOfLastOperationSign = reversedEquation.findIndex(element => isNaN(element));
 
     if (indexOfLastOperationSign !== -1) {
-        let numberToSquare = Math.pow(Number(reversedEquation.slice(0, indexOfLastOperationSign).reverse().join('')), index);
-        return reversedEquation.slice(indexOfLastOperationSign).reverse().concat(numberToSquare);
+        let numberToSquareOrRoot = Number(reversedEquation.slice(0, indexOfLastOperationSign).reverse().join(''));
+
+        if (index === 0.5 && numberToSquareOrRoot < 0) {
+            return ['CAN NOT EXTRACT ROOT FROM NEGATIVE NUMBER'];
+        }
+
+        let mathPoweredNumber = Math.pow(numberToSquareOrRoot, index);
+        return reversedEquation.slice(indexOfLastOperationSign).reverse().concat(mathPoweredNumber);
     }
 
     return [Math.pow(equation.join(''), index)];
@@ -232,4 +240,11 @@ export const mathPowerLastInput = (equation, index) => {
 
 export const mathPowerIfAlreadyCalculated = (result, isAlreadyCalculated, index) => {
     return isAlreadyCalculated ? Math.pow(result, index) : result;
+};
+
+export const rootIfAlreadyCalculated = (result, isAlreadyCalculated) => {
+    if (result < 0 && isAlreadyCalculated) {
+        return ['CAN NOT EXTRACT ROOT FROM NEGATIVE NUMBER'];
+    }
+    return result > 0 && isAlreadyCalculated ? Math.pow(result, 0.5) : result;
 };
