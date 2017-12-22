@@ -5,7 +5,7 @@ import {
     SELECT_DIGITAL_BUTTON, SELECT_MATH_POWER_BUTTON, SELECT_MEMORY_BUTTON, SELECT_MEMORY_CLEAN_BUTTON,
     SELECT_MEMORY_READ_BUTTON,
     SELECT_OPERATION_BUTTON,
-    SELECT_RESULT_BUTTON
+    SELECT_RESULT_BUTTON, SELECT_ROOT_BUTTON
 } from "./types";
 
 export const selectDigitalButton = (buttonValue) => {
@@ -51,29 +51,36 @@ export const selectBracketButton = (buttonValue) => {
 };
 
 export const selectMemoryButton = (buttonValue) => {
-  return {
-      type: SELECT_MEMORY_BUTTON,
-      value: buttonValue
-  }
+    return {
+        type: SELECT_MEMORY_BUTTON,
+        value: buttonValue
+    }
 };
 
 export const selectMemoryCleanButton = (buttonValue) => {
-  return {
-      type: SELECT_MEMORY_CLEAN_BUTTON,
-      value: buttonValue
-  }
+    return {
+        type: SELECT_MEMORY_CLEAN_BUTTON,
+        value: buttonValue
+    }
 };
 
 export const selectMemoryReadButton = (buttonValue) => {
-  return {
-      type: SELECT_MEMORY_READ_BUTTON,
-      value: buttonValue
-  }
+    return {
+        type: SELECT_MEMORY_READ_BUTTON,
+        value: buttonValue
+    }
 };
 
 export const selectMathPowerButton = (buttonValue) => {
-  return {
-      type: SELECT_MATH_POWER_BUTTON,
-      value: buttonValue
-  }
+    return {
+        type: SELECT_MATH_POWER_BUTTON,
+        value: buttonValue
+    }
+};
+
+export const selectRootButton = (buttonValue) => {
+    return {
+        type: SELECT_ROOT_BUTTON,
+        value: buttonValue
+    }
 };

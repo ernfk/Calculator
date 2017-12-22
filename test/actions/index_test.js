@@ -7,7 +7,7 @@ import {
     selectCleanLastButton,
     selectDigitalButton, selectMathPowerButton, selectMemoryButton, selectMemoryCleanButton, selectMemoryReadButton,
     selectOperationButton,
-    selectResultButton
+    selectResultButton, selectRootButton
 } from "../../src/actions/index";
 import {
     SELECT_BRACKET_BUTTON,
@@ -16,7 +16,7 @@ import {
     SELECT_DIGITAL_BUTTON, SELECT_MATH_POWER_BUTTON, SELECT_MEMORY_BUTTON, SELECT_MEMORY_CLEAN_BUTTON,
     SELECT_MEMORY_READ_BUTTON,
     SELECT_OPERATION_BUTTON,
-    SELECT_RESULT_BUTTON
+    SELECT_RESULT_BUTTON, SELECT_ROOT_BUTTON
 } from "../../src/actions/types";
 
 
@@ -141,6 +141,18 @@ describe('Actions tests', () => {
         it('Has the correct button value', () => {
             const action = selectMathPowerButton('sqr');
             expect(action.value).to.equal('sqr');
+        });
+    });
+
+    describe('Action: selectRootButton', () => {
+        it('Has the correct type', () => {
+            const action = selectRootButton();
+            expect(action.type).to.equal(SELECT_ROOT_BUTTON);
+        });
+
+        it('Has the correct button value', () => {
+            const action = selectRootButton('root');
+            expect(action.value).to.equal('root');
         });
     });
 

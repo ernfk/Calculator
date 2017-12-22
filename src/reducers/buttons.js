@@ -72,8 +72,8 @@ export const buttonsReducer = (state = initialState, action) => {
         case SELECT_MATH_POWER_BUTTON:
             return {
                 ...state,
-                result: mathPowerIfAlreadyCalculated(state.result, state.alreadyCalculated),
-                equation: mathPowerLastInput(state.equation)
+                result: mathPowerIfAlreadyCalculated(state.result, state.alreadyCalculated, 2),
+                equation: mathPowerLastInput(state.equation, 2)
             };
         default:
             return initialState;
@@ -199,13 +199,13 @@ export const isMemoryEmpty = (memory) => {
  * @param equation
  * @returns {*}
  */
-export const mathPowerLastInput = (equation) => {
+export const mathPowerLastInput = (equation, index) => {
     if (equation[equation.length - 1] === ")" && equation.length > 1) {
         let reversedEquation = equation.slice().reverse();
         let indexOfLastLeftBracket = reversedEquation.findIndex(element => element === "(");
-        let restOfArrayToConcat = reversedEquation.slice().splice(indexOfLastLeftBracket+1, reversedEquation.length).reverse();
+        let restOfArrayToConcat = reversedEquation.slice().splice(indexOfLastLeftBracket + 1, reversedEquation.length).reverse();
         let calculationToSquare = reversedEquation.slice().splice(1, indexOfLastLeftBracket - 1).reverse();
-        let squaredValue = Math.pow(calculate(calculationToSquare), 2);
+        let squaredValue = Math.pow(calculate(calculationToSquare), index);
         return restOfArrayToConcat.concat(squaredValue);
     }
 
@@ -217,13 +217,13 @@ export const mathPowerLastInput = (equation) => {
     let indexOfLastOperationSign = reversedEquation.findIndex(element => isNaN(element));
 
     if (indexOfLastOperationSign !== -1) {
-        let numberToSquare = Math.pow(Number(reversedEquation.slice(0, indexOfLastOperationSign).reverse().join('')), 2);
+        let numberToSquare = Math.pow(Number(reversedEquation.slice(0, indexOfLastOperationSign).reverse().join('')), index);
         return reversedEquation.slice(indexOfLastOperationSign).reverse().concat(numberToSquare);
     }
 
-    return [Math.pow(equation.join(''), 2)];
+    return [Math.pow(equation.join(''), index)];
 };
 
-export const mathPowerIfAlreadyCalculated = (result, isAlreadyCalculated) => {
-    return isAlreadyCalculated ? Math.pow(result, 2) : result;
+export const mathPowerIfAlreadyCalculated = (result, isAlreadyCalculated, index) => {
+    return isAlreadyCalculated ? Math.pow(result, index) : result;
 };
