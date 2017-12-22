@@ -62,9 +62,10 @@ export class Screen extends Component {
         const equationToShow = prepareEquationToShow(equation);
         let showingData = null;
 
+        if (equationToShow === negativeNumberRootError) screenStyle = "negative-root-error";
         if (result === 'Bad input!') screenStyle = "screen-error";
         if (Array.isArray(result) && result[0] === negativeNumberRootError) screenStyle = "negative-root-error";
-        if (result === null) screenStyle = "screen";
+        if (result === null && equationToShow !== negativeNumberRootError) screenStyle = "screen";
 
         showingData = getDateToShow(result, alreadyCalculated, equationToShow);
 
