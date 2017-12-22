@@ -5,7 +5,7 @@ import {
     selectBracketButton,
     selectCleanAllButton,
     selectCleanLastButton,
-    selectDigitalButton, selectMathPowerButton, selectMemoryButton, selectMemoryCleanButton, selectMemoryReadButton,
+    selectDigitalButton, selectSquareButton, selectMemoryButton, selectMemoryCleanButton, selectMemoryReadButton,
     selectOperationButton,
     selectResultButton, selectRootButton
 } from "../../src/actions/index";
@@ -13,7 +13,7 @@ import {
     SELECT_BRACKET_BUTTON,
     SELECT_CLEAN_ALL_BUTTON,
     SELECT_CLEAN_LAST_CHARACTER_BUTTON,
-    SELECT_DIGITAL_BUTTON, SELECT_MATH_POWER_BUTTON, SELECT_MEMORY_BUTTON, SELECT_MEMORY_CLEAN_BUTTON,
+    SELECT_DIGITAL_BUTTON, SELECT_SQUARE_BUTTON, SELECT_MEMORY_BUTTON, SELECT_MEMORY_CLEAN_BUTTON,
     SELECT_MEMORY_READ_BUTTON,
     SELECT_OPERATION_BUTTON,
     SELECT_RESULT_BUTTON, SELECT_ROOT_BUTTON
@@ -132,14 +132,14 @@ describe('Actions tests', () => {
         });
     });
 
-    describe('Action: selectMathPowerButton', () => {
+    describe('Action: selectSquareButton', () => {
         it('Has the correct type', () => {
-            const action = selectMathPowerButton();
-            expect(action.type).to.equal(SELECT_MATH_POWER_BUTTON);
+            const action = selectSquareButton();
+            expect(action.type).to.equal(SELECT_SQUARE_BUTTON);
         });
 
         it('Has the correct button value', () => {
-            const action = selectMathPowerButton('sqr');
+            const action = selectSquareButton('sqr');
             expect(action.value).to.equal('sqr');
         });
     });

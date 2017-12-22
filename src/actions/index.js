@@ -2,7 +2,7 @@ import {
     SELECT_BRACKET_BUTTON,
     SELECT_CLEAN_ALL_BUTTON,
     SELECT_CLEAN_LAST_CHARACTER_BUTTON,
-    SELECT_DIGITAL_BUTTON, SELECT_MATH_POWER_BUTTON, SELECT_MEMORY_BUTTON, SELECT_MEMORY_CLEAN_BUTTON,
+    SELECT_DIGITAL_BUTTON, SELECT_SQUARE_BUTTON, SELECT_MEMORY_BUTTON, SELECT_MEMORY_CLEAN_BUTTON,
     SELECT_MEMORY_READ_BUTTON,
     SELECT_OPERATION_BUTTON,
     SELECT_RESULT_BUTTON, SELECT_ROOT_BUTTON
@@ -71,9 +71,9 @@ export const selectMemoryReadButton = (buttonValue) => {
     }
 };
 
-export const selectMathPowerButton = (buttonValue) => {
+export const selectSquareButton = (buttonValue) => {
     return {
-        type: SELECT_MATH_POWER_BUTTON,
+        type: SELECT_SQUARE_BUTTON,
         value: buttonValue
     }
 };

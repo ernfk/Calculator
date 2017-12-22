@@ -252,7 +252,7 @@ describe('Tests for chaining equation. ', () => {
         });
     });
 
-    describe('Check last element and if it is the digit, return square of it', () => {
+    describe('Square number operations', () => {
         it('mathPowerLastInput() where last input element is 5', () => {
             let squareNumber = mathPowerLastInput(["5"], 2);
             expect(squareNumber).to.eql([25]);
@@ -280,11 +280,31 @@ describe('Tests for chaining equation. ', () => {
             let newArr = mathPowerLastInput(equation, 2);
             expect(newArr).to.eql(["1", "+", 9]);
         });
+    });
 
+    describe('Extraction of a root operations', () => {
         it('mathPowerLastInput() where last input element is digit', () => {
             let equation = ["25"];
-            let result = Math.pow(Number(equation.join('')), 0.5);
-            expect(result).to.equal(5);
+            let result = mathPowerLastInput(equation, 0.5);
+            expect(result).to.eql([5]);
+        });
+
+        it('mathPowerLastInput() where: ["1", "6"] => [4]', () => {
+            let equation = ["1", "6"];
+            let newArr = mathPowerLastInput(equation, 0.5);
+            expect(newArr).to.eql([4]);
+        });
+
+        it('mathPowerLastInput() where: ["5", "+", "1", "6"] => ["5", "+", 4]', () => {
+            let equation = ["5", "+", "1", "6"];
+            let newArr = mathPowerLastInput(equation, 0.5);
+            expect(newArr).to.eql(["5", "+", 4]);
+        });
+
+        it('mathPowerLastInput() where: ["1","+", "(", "2", "+", "7", ")"] => ["1", "+", 3]', () => {
+            let equation = ["1", "+", "(", "2", "+", "7", ")"];
+            let newArr = mathPowerLastInput(equation, 0.5);
+            expect(newArr).to.eql(["1", "+", 3]);
         });
     });
 });

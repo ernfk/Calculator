@@ -7,10 +7,10 @@ import {
     SELECT_BRACKET_BUTTON,
     SELECT_CLEAN_ALL_BUTTON,
     SELECT_CLEAN_LAST_CHARACTER_BUTTON,
-    SELECT_DIGITAL_BUTTON, SELECT_MATH_POWER_BUTTON, SELECT_MEMORY_BUTTON, SELECT_MEMORY_CLEAN_BUTTON,
+    SELECT_DIGITAL_BUTTON, SELECT_SQUARE_BUTTON, SELECT_MEMORY_BUTTON, SELECT_MEMORY_CLEAN_BUTTON,
     SELECT_MEMORY_READ_BUTTON,
     SELECT_OPERATION_BUTTON,
-    SELECT_RESULT_BUTTON
+    SELECT_RESULT_BUTTON, SELECT_ROOT_BUTTON
 } from "../actions/types";
 
 export const initialState = {
@@ -69,11 +69,17 @@ export const buttonsReducer = (state = initialState, action) => {
                 ...state,
                 equation: [...state.equation, isMemoryEmpty(state.memory[0])]
             };
-        case SELECT_MATH_POWER_BUTTON:
+        case SELECT_SQUARE_BUTTON:
             return {
                 ...state,
                 result: mathPowerIfAlreadyCalculated(state.result, state.alreadyCalculated, 2),
                 equation: mathPowerLastInput(state.equation, 2)
+            };
+        case SELECT_ROOT_BUTTON:
+            return {
+                ...state,
+                result: mathPowerIfAlreadyCalculated(state.result, state.alreadyCalculated, 0.5),
+                equation: mathPowerLastInput(state.equation, 0.5)
             };
         default:
             return initialState;

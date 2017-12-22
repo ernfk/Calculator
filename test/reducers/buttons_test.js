@@ -6,9 +6,9 @@ import {
     selectBracketButton,
     selectCleanAllButton,
     selectCleanLastButton,
-    selectDigitalButton, selectMathPowerButton, selectMemoryButton, selectMemoryCleanButton, selectMemoryReadButton,
+    selectDigitalButton, selectSquareButton, selectMemoryButton, selectMemoryCleanButton, selectMemoryReadButton,
     selectOperationButton,
-    selectResultButton
+    selectResultButton, selectRootButton
 } from "../../src/actions/index";
 import {createStore} from "redux";
 import {rootReducer} from "../../src/reducers/index";
@@ -526,9 +526,9 @@ describe('Buttons reducer tests', () => {
         });
     });
 
-    it('Handling action: SELECT_MATH_POWER_BUTTON', () => {
+    it('Handling action: SELECT_SQUARE_BUTTON', () => {
         store.dispatch(digitActionFive);
-        store.dispatch(selectMathPowerButton('sqr'));
+        store.dispatch(selectSquareButton('sqr'));
 
         expect(store.getState().buttons).to.eql({
             equation: [25],
@@ -553,7 +553,7 @@ describe('Buttons reducer tests', () => {
         });
 
         store.dispatch(additionAction);
-        store.dispatch(selectMathPowerButton('sqr'));
+        store.dispatch(selectSquareButton('sqr'));
 
         expect(store.getState().buttons).to.eql({
             equation: [27, "+"],
@@ -567,7 +567,7 @@ describe('Buttons reducer tests', () => {
 
         store.dispatch(additionAction);
         store.dispatch(digitActionTwo);
-        store.dispatch(selectMathPowerButton('sqr'));
+        store.dispatch(selectSquareButton('sqr'));
 
         expect(store.getState().buttons).to.eql({
             equation: [27, "+", 4],
@@ -595,7 +595,7 @@ describe('Buttons reducer tests', () => {
         store.dispatch(additionAction);
         store.dispatch(digitActionTwo);
         store.dispatch(digitActionThree);
-        store.dispatch(selectMathPowerButton('sqr'));
+        store.dispatch(selectSquareButton('sqr'));
 
         expect(store.getState().buttons).to.eql({
             equation: [31, "+", 529],
@@ -618,6 +618,39 @@ describe('Buttons reducer tests', () => {
                 {equation: [25, "+", "2"], date: formatDate(), result: 27},
                 {equation: [27, "+", 4], date: formatDate(), result: 31},
                 {equation: [31, "+", 529], date: formatDate(), result: 560},
+            ],
+            memory: []
+        });
+    });
+
+    it('Handling action: SELECT_ROOT_BUTTON', () => {
+       store.dispatch(selectDigitalButton(16));
+       store.dispatch(selectRootButton('root'));
+
+        expect(store.getState().buttons).to.eql({
+            equation: [4],
+            result: null,
+            alreadyCalculated: false,
+            savedResults: [
+            ],
+            memory: []
+        });
+
+        store.dispatch(additionAction);
+        store.dispatch(selectBracketButton("("));
+        store.dispatch(selectDigitalButton(12));
+        store.dispatch(multiplicationAction);
+        store.dispatch(selectDigitalButton(12));
+        store.dispatch(selectBracketButton(")"));
+        store.dispatch(selectRootButton('root'));
+        store.dispatch(resultAction);
+
+        expect(store.getState().buttons).to.eql({
+            equation: [16],
+            result: 16,
+            alreadyCalculated: true,
+            savedResults: [
+                {equation: [4, "+", 12], date: formatDate(), result: 16},
             ],
             memory: []
         });
