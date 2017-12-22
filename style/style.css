@@ -31,7 +31,7 @@ body {
 }
 
 /* #Screen */
-.screen, .screen-error {
+.screen, .screen-error, .negative-root-error {
     width: 296px;
     margin: 10px auto;
     height: 80px;
@@ -47,6 +47,11 @@ body {
 
 .screen-error {
     color: #bc3e32;
+}
+
+.negative-root-error {
+    color: #bc3e32;
+    font-size: 15px;
 }
 
 ::-webkit-input-placeholder {

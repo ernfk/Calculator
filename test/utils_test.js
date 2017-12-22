@@ -4,7 +4,7 @@ import {beforeEach, describe, it} from "mocha/lib/mocha";
 import {isElementInArray, prepareEquationToShow, validatePressedKey} from "../src/components/Screen";
 import {
     buttonsReducer, calculate, deleteLastElement, getLastElement,
-    verifyOperationSings, formatDate, mathPowerLastInput
+    verifyOperationSings, formatDate, mathPowerLastInput, negativeNumberRootError
 } from "../src/reducers/buttons";
 import {rootReducer} from "../src/reducers/index";
 import {createStore} from "redux";
@@ -316,13 +316,13 @@ describe('Tests for chaining equation. ', () => {
         it('mathPowerListInput() where number is negative', () => {
             let equation = ["-2","5"];
             let newArr = mathPowerLastInput(equation, 0.5);
-            expect(newArr).to.eql(['CAN NOT EXTRACT ROOT FROM NEGATIVE NUMBER']);
+            expect(newArr).to.eql([negativeNumberRootError]);
         });
 
         it('mathPowerListInput() where number is negative from calculation', () => {
             let equation = ["1", "+", "(", "2", "*", "8", "-", "17", ")"];
             let newArr = mathPowerLastInput(equation, 0.5);
-            expect(newArr).to.eql(['CAN NOT EXTRACT ROOT FROM NEGATIVE NUMBER']);
+            expect(newArr).to.eql([negativeNumberRootError]);
         });
     });
 });

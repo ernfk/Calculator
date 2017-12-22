@@ -1,7 +1,20 @@
+/**
+ * Due to:
+ * 1) result value
+ * 2) alreadyCalculatedState - represents flag boolean:
+ *      - true means we've already some result of calculation,
+ *      - false - not yet.
+ * determines which data should be rendered: equation before calculation or already calculated result.
+ * @param result
+ * @param alreadyCalculatedState
+ * @param equationToShow
+ * @returns {*}
+ */
 import React, {Component} from "react";
 import {connect} from "react-redux";
 import * as PropTypes from "react/lib/ReactPropTypes";
 import * as actions from "../actions/index";
+import {negativeNumberRootError} from "../reducers/buttons";
 
 let screenStyle = "screen";
 
@@ -50,6 +63,7 @@ export class Screen extends Component {
         let showingData = null;
 
         if (result === 'Bad input!') screenStyle = "screen-error";
+        if (Array.isArray(result) && result[0] === negativeNumberRootError) screenStyle = "negative-root-error";
         if (result === null) screenStyle = "screen";
 
         showingData = getDateToShow(result, alreadyCalculated, equationToShow);
@@ -86,18 +100,6 @@ export const prepareEquationToShow = (equation) => {
         .trim();
 };
 
-/**
- * Due to:
- * 1) result value
- * 2) alreadyCalculatedState - represents flag boolean:
- *      - true means we've already some result of calculation,
- *      - false - not yet.
- * determines which data should be rendered: equation before calculation or already calculated result.
- * @param result
- * @param alreadyCalculatedState
- * @param equationToShow
- * @returns {*}
- */
 const getDateToShow = (result, alreadyCalculatedState, equationToShow) => {
     let showingData;
 

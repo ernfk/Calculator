@@ -194,10 +194,11 @@ export const isMemoryEmpty = (memory) => {
     return memory === undefined ? "" : memory;
 };
 
+export const negativeNumberRootError = "ROOT FROM NEGATIVE NUMBER!";
 
 export const mathPowerLastInput = (equation, index) => {
     if (index === 0.5 && equation.length > 1) {
-        if (Number(equation.join('')) < 0) return ['CAN NOT EXTRACT ROOT FROM NEGATIVE NUMBER'];
+        if (Number(equation.join('')) < 0) return [negativeNumberRootError];
     } else if (index === 2 && equation.length > 1) {
         if (Number(equation.join('')) < 0) return [Math.pow(Number(equation.join('')), index)];
     }
@@ -210,7 +211,7 @@ export const mathPowerLastInput = (equation, index) => {
 
         let valueToSquareRoot = calculate(calculationToSquareOrRoot);
         if (index === 0.5 && valueToSquareRoot < 0) {
-            return ['CAN NOT EXTRACT ROOT FROM NEGATIVE NUMBER'];
+            return [negativeNumberRootError];
         }
 
         let squaredOrRootValue = Math.pow(valueToSquareRoot, index);
@@ -228,7 +229,7 @@ export const mathPowerLastInput = (equation, index) => {
         let numberToSquareOrRoot = Number(reversedEquation.slice(0, indexOfLastOperationSign).reverse().join(''));
 
         if (index === 0.5 && numberToSquareOrRoot < 0) {
-            return ['CAN NOT EXTRACT ROOT FROM NEGATIVE NUMBER'];
+            return [negativeNumberRootError];
         }
 
         let mathPoweredNumber = Math.pow(numberToSquareOrRoot, index);
@@ -244,7 +245,7 @@ export const mathPowerIfAlreadyCalculated = (result, isAlreadyCalculated, index)
 
 export const rootIfAlreadyCalculated = (result, isAlreadyCalculated) => {
     if (result < 0 && isAlreadyCalculated) {
-        return ['CAN NOT EXTRACT ROOT FROM NEGATIVE NUMBER'];
+        return [negativeNumberRootError];
     }
     return result > 0 && isAlreadyCalculated ? Math.pow(result, 0.5) : result;
 };
