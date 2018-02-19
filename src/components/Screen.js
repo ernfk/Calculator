@@ -57,8 +57,6 @@ export class Screen extends Component {
     }
 
     render() {
-        console.log(this.props);
-
         const {equation, result, alreadyCalculated, memory} = this.props;
         const equationToShow = prepareEquationToShow(equation);
         let showingData = null;
@@ -73,7 +71,7 @@ export class Screen extends Component {
         return (
             <div>
                 <div className="memory-display">
-                    Memory: {memory}
+                    <span className="memory-display-title"> M: {memory} </span>
                 </div>
                 <div onKeyDown={this.onKeyPressedDown.bind(this)}>
                     <input className={screenStyle} type="text" value={showingData} placeholder="0" id="inputFocus"/>

@@ -42,7 +42,7 @@ body {
     font-size: 20px;
     color: #1c2541;
     text-align: right;
-    font-family: 'Orbitron';
+    font-family: 'Orbitron', serif;
     background-color: #BFD7EA;
 }
 
@@ -69,6 +69,7 @@ body {
 
 input {
     padding-right: 10px;
+    outline: none;
 }
 
 /* #Numerical block */
@@ -213,7 +214,7 @@ input {
     border-radius: 10px;
     width: 340px;
     height: 530px;
-    background-color: rgba(191,215,234, 0.28);
+    background-color: rgba(191, 215, 234, 0.28);
 
 }
 
@@ -239,17 +240,23 @@ input {
     text-align: left;
 }
 
+/* Memory */
 .memory-display {
     width: 306px;
-    height: 30px;
+    height: 25px;
     border: 3px white solid;
     border-bottom: none;
     border-radius: 10px 10px 0 0;
     display: flex;
-    font-size: 10px;
-    color: #1c2541;
-    text-align: right;
-    font-family: 'Orbitron';
+    justify-content: flex-end;
     background-color: #BFD7EA;
     margin: 10px auto -10px;
+    font-size: 12px;
+    color: #1c2541;
+    /*font-weight: bold;*/
+    font-family: 'Orbitron', serif;
+}
+
+.memory-display-title {
+    margin: 5px 12px 0 0;
 }
