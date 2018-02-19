@@ -24,4 +24,4 @@ Additional improvements for future:
 - BUG: math pow takes last digit not a number (63 sqr => 69 should be 3969) `Done: 20.12.2017`
 - BUG: math pow on calculation inside brackets: (1+2) => 9 `Done: 21.12.2017`
 - REFACTOR: mathPowerLastInput method
-5. Add display for current Memory saved.
+5. Add display for current Memory saved. `Done: 19.02.2018`
