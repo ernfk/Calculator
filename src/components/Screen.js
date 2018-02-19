@@ -53,12 +53,13 @@ export class Screen extends Component {
             }
             default:
                 return;
-                break;
         }
     }
 
     render() {
-        const {equation, result, alreadyCalculated} = this.props;
+        console.log(this.props);
+
+        const {equation, result, alreadyCalculated, memory} = this.props;
         const equationToShow = prepareEquationToShow(equation);
         let showingData = null;
 
@@ -70,8 +71,13 @@ export class Screen extends Component {
         showingData = getDateToShow(result, alreadyCalculated, equationToShow);
 
         return (
-            <div onKeyDown={this.onKeyPressedDown.bind(this)}>
-                <input className={screenStyle} type="text" value={showingData} placeholder="0" id="inputFocus"/>
+            <div>
+                <div className="memory-display">
+                    Memory: {memory}
+                </div>
+                <div onKeyDown={this.onKeyPressedDown.bind(this)}>
+                    <input className={screenStyle} type="text" value={showingData} placeholder="0" id="inputFocus"/>
+                </div>
             </div>
         )
     }
@@ -85,7 +91,8 @@ const mapStateToProps = (state) => {
     return {
         equation: state.buttons.equation,
         result: state.buttons.result,
-        alreadyCalculated: state.buttons.alreadyCalculated
+        alreadyCalculated: state.buttons.alreadyCalculated,
+        memory: state.buttons.memory
     }
 };
 

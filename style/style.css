@@ -34,9 +34,10 @@ body {
 .screen, .screen-error, .negative-root-error {
     width: 296px;
     margin: 10px auto;
-    height: 80px;
+    height: 30px;
     border: 3px white solid;
-    border-radius: 10px;
+    border-top: none;
+    border-radius: 0 0 10px 10px;
     display: flex;
     font-size: 20px;
     color: #1c2541;
@@ -236,4 +237,19 @@ input {
     color: #000000;
     font-size: 12px;
     text-align: left;
+}
+
+.memory-display {
+    width: 306px;
+    height: 30px;
+    border: 3px white solid;
+    border-bottom: none;
+    border-radius: 10px 10px 0 0;
+    display: flex;
+    font-size: 10px;
+    color: #1c2541;
+    text-align: right;
+    font-family: 'Orbitron';
+    background-color: #BFD7EA;
+    margin: 10px auto -10px;
 }
