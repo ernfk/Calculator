@@ -1,8 +1,3 @@
-/**
- * Calculate equation from array elements.
- * @param equation
- * @returns {*}
- */
 import {
     SELECT_BRACKET_BUTTON,
     SELECT_CLEAN_ALL_BUTTON,
@@ -86,7 +81,11 @@ export const buttonsReducer = (state = initialState, action) => {
     }
 };
 
-
+/**
+ * Calculate equation from array elements.
+ * @param equation
+ * @returns {*}
+ */
 export const calculate = (equation) => {
     let result;
     try {
